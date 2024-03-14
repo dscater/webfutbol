@@ -13,7 +13,6 @@
 
     <script>
         const url_assets = "{{ asset('') }}";
-        const mapa_id = "1fb896f332f7b53c";
     </script>
 
     <!-- Scripts -->
