@@ -15,6 +15,14 @@
         const url_assets = "{{ asset('') }}";
     </script>
 
+    <style>
+        .v-container.login {
+            background-image: url('{{ asset('imgs/fondo.webp') }}') !important;
+            background-size: cover;
+            padding: 0px;
+        }
+    </style>
+
     <!-- Scripts -->
     @routes
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])

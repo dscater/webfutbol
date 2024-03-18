@@ -20,6 +20,46 @@ class UserController extends Controller
             "institucions.create",
             "institucions.edit",
             "institucions.destroy",
+
+            "equipos.index",
+            "equipos.create",
+            "equipos.edit",
+            "equipos.destroy",
+
+            "equipo_titulos.index",
+            "equipo_titulos.create",
+            "equipo_titulos.edit",
+            "equipo_titulos.destroy",
+
+            "jugadors.index",
+            "jugadors.create",
+            "jugadors.edit",
+            "jugadors.destroy",
+
+            "jugador_titulos.index",
+            "jugador_titulos.create",
+            "jugador_titulos.edit",
+            "jugador_titulos.destroy",
+
+            "fichajes.index",
+            "fichajes.create",
+            "fichajes.edit",
+            "fichajes.destroy",
+
+            "tabla_posicions.index",
+            "tabla_posicions.create",
+            "tabla_posicions.edit",
+            "tabla_posicions.destroy",
+
+            "alineacion_equipos.index",
+            "alineacion_equipos.create",
+            "alineacion_equipos.edit",
+            "alineacion_equipos.destroy",
+
+            "prediccion_partidos.index",
+            "prediccion_partidos.create",
+            "prediccion_partidos.edit",
+            "prediccion_partidos.destroy",
         ],
         "ANALISTA DEPORTIVO" => [
             "vuetify",

@@ -1,11 +1,13 @@
 :root {
-    --principal: #2a9af3;
+    --principal: #1867c0;
     --principal_hover: #40a5f7;
     --principal_transparent: #2a99f3c2;
-    --secundario: #f1f1f1;
+    --secundario: #e96f20;
+    --secundario_hover: #fc9002;
     --fondo_app: #f2f2f2;
     --correcto: #d2e7c9;
     --transparente: #000000bd;
+    --transparente2: #fffffffa;
     --progress: #4b5563;
 }
 
@@ -14,9 +16,12 @@ html {
     overflow-y: overlay;
 }
 
-.ubicacion,
-iframe {
-    width: 100%;
+.bg-transparente{
+    background-color: var(--transparente2);
+}
+
+.text-secundario {
+    color: var(--secundario);
 }
 
 .v-container,
@@ -58,7 +63,7 @@ iframe {
 .__sidebar .active {
     border-radius: 8px;
     background-color: var(--principal);
-    color: white;
+    color: var(--secundario_hover);
 }
 
 /* Estilo del contenedor del cajón de navegación */

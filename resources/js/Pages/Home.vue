@@ -55,7 +55,7 @@ const { props } = usePage();
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>
@@ -68,7 +68,7 @@ const { props } = usePage();
                         <v-row>
                             <v-col cols="4" class="pa-2">
                                 <v-img
-                                    src="/imgs/icon_users.png"
+                                    src="/imgs/icon_solicitud.png"
                                     class="ma-auto ml-2"
                                 ></v-img>
                             </v-col>
@@ -79,12 +79,12 @@ const { props } = usePage();
                                 <h4
                                     class="text-h5 text-center font-weight-black mb-3"
                                 >
-                                    Usuarios
+                                    Equipos
                                 </h4>
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>
@@ -97,7 +97,7 @@ const { props } = usePage();
                         <v-row>
                             <v-col cols="4" class="pa-2">
                                 <v-img
-                                    src="/imgs/icon_users.png"
+                                    src="/imgs/icon_inscripcion.png"
                                     class="ma-auto ml-2"
                                 ></v-img>
                             </v-col>
@@ -108,12 +108,12 @@ const { props } = usePage();
                                 <h4
                                     class="text-h5 text-center font-weight-black mb-3"
                                 >
-                                    Usuarios
+                                    Jugadores
                                 </h4>
                                 <h4
                                     class="text-h4 text-center font-weight-black"
                                 >
-                                    20
+                                    1
                                 </h4>
                             </v-col>
                         </v-row>

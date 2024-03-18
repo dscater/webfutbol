@@ -22,8 +22,11 @@ const user_logeado = ref({
 });
 
 const submenus = {
-    vuetify: "Multinivel1",
-    vuetify2: "Multinivel1",
+    "equipos.index": "Equipos",
+    "equipo_titulos.index": "Equipos",
+    "jugadors.index": "Jugadors",
+    "jugador_titulos.index": "Jugadors",
+    "reportes.usuarios": "Reportes",
 };
 
 const route_current = ref("");
@@ -85,11 +88,11 @@ const scrollActive = () => {
     >
         <v-sheet>
             <div
-                class="w-100 d-flex flex-column align-center elevation-1 bg-blue pa-2 __info_usuario"
+                class="w-100 d-flex flex-column align-center elevation-1 bg-primary pa-2 __info_usuario"
             >
                 <v-avatar
                     class="mb-1"
-                    color="blue-darken-3"
+                    color="orange-darken-4"
                     :size="`${!rail ? '64' : '32'}`"
                 >
                     <v-img
@@ -141,98 +144,196 @@ const scrollActive = () => {
                 >
                 <span v-else>ADMINISTRACIÓN</span></v-list-item
             >
-
             <v-list-item
                 :class="[
-                    route_current == 'obras.index' ||
-                    route_current == 'obras.create' ||
-                    route_current == 'obras.edit'
+                    route_current == 'prediccion_partidos.index'
                         ? 'active'
                         : '',
                 ]"
-                v-if="oUser.permisos.includes('obras.index')"
-                prepend-icon="mdi-view-list"
-                @click="cambiarUrl(route('obras.index'))"
+                v-if="oUser.permisos.includes('prediccion_partidos.index')"
+                prepend-icon="mdi-list-status"
+                @click="cambiarUrl(route('prediccion_partidos.index'))"
                 link
             >
-                <v-list-item-title>Obras</v-list-item-title>
+                <v-list-item-title>Predicción del Partido</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Obras</v-tooltip
+                    >Predicción del Partido</v-tooltip
                 >
             </v-list-item>
-
             <v-list-item
-                :class="[route_current == 'categorias.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('categorias.index')"
+                :class="[
+                    route_current == 'alineacion_equipos.index' ? 'active' : '',
+                ]"
+                v-if="oUser.permisos.includes('alineacion_equipos.index')"
                 prepend-icon="mdi-clipboard-list"
-                @click="cambiarUrl(route('categorias.index'))"
+                @click="cambiarUrl(route('alineacion_equipos.index'))"
                 link
             >
-                <v-list-item-title>Categorías</v-list-item-title>
+                <v-list-item-title>Alineación de Equipos</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Categorías</v-tooltip
+                    >Alineación de Equipos</v-tooltip
                 >
             </v-list-item>
-
             <v-list-item
-                :class="[route_current == 'maquinarias.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('maquinarias.index')"
-                prepend-icon="mdi-tow-truck"
-                @click="cambiarUrl(route('maquinarias.index'))"
+                :class="[
+                    route_current == 'tabla_posicions.index' ? 'active' : '',
+                ]"
+                v-if="oUser.permisos.includes('tabla_posicions.index')"
+                prepend-icon="mdi-table"
+                @click="cambiarUrl(route('tabla_posicions.index'))"
                 link
             >
-                <v-list-item-title>Maquinarias</v-list-item-title>
+                <v-list-item-title>Tabla de Posiciones</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Maquinarias</v-tooltip
+                    >Tabla de Posiciones</v-tooltip
                 >
             </v-list-item>
-
+            <!-- SUBGROUP 1 -->
+            <v-list-group value="Equipos">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        v-bind="props"
+                        prepend-icon="mdi-view-list"
+                        title="Equipos"
+                        :class="[
+                            route_current == 'equipos.index' ||
+                            route_current == 'equipo_titulos.index'
+                                ? 'active'
+                                : '',
+                        ]"
+                    >
+                        <v-tooltip
+                            v-if="rail && !mobile"
+                            color="white"
+                            activator="parent"
+                            location="end"
+                            >Equipos</v-tooltip
+                        ></v-list-item
+                    >
+                </template>
+                <v-list-item
+                    v-if="oUser.permisos.includes('equipos.index')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Equipos"
+                    :class="[route_current == 'equipos.index' ? 'active' : '']"
+                    @click="cambiarUrl(route('equipos.index'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Equipos</v-tooltip
+                    ></v-list-item
+                >
+                <v-list-item
+                    v-if="oUser.permisos.includes('equipo_titulos.index')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Títulos de Equipos"
+                    :class="[
+                        route_current == 'equipo_titulos.index' ? 'active' : '',
+                    ]"
+                    @click="cambiarUrl(route('equipo_titulos.index'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Títulos de Equipos</v-tooltip
+                    ></v-list-item
+                >
+            </v-list-group>
+            <!-- SUBGROUP 2 -->
+            <v-list-group value="Jugadors">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        v-bind="props"
+                        prepend-icon="mdi-account-multiple-outline"
+                        title="Jugadores"
+                        :class="[
+                            route_current == 'jugadors.index' ||
+                            route_current == 'jugador_titulos.index'
+                                ? 'active'
+                                : '',
+                        ]"
+                    >
+                        <v-tooltip
+                            v-if="rail && !mobile"
+                            color="white"
+                            activator="parent"
+                            location="end"
+                            >Jugadores</v-tooltip
+                        ></v-list-item
+                    >
+                </template>
+                <v-list-item
+                    v-if="oUser.permisos.includes('jugadors.index')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Jugadores"
+                    :class="[route_current == 'jugadors.index' ? 'active' : '']"
+                    @click="cambiarUrl(route('jugadors.index'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Jugadores</v-tooltip
+                    ></v-list-item
+                >
+                <v-list-item
+                    v-if="oUser.permisos.includes('jugador_titulos.index')"
+                    prepend-icon="mdi-chevron-right"
+                    title="Títulos de Jugadores"
+                    :class="[
+                        route_current == 'jugador_titulos.index'
+                            ? 'active'
+                            : '',
+                    ]"
+                    @click="cambiarUrl(route('jugador_titulos.index'))"
+                    link
+                >
+                    <v-tooltip
+                        v-if="rail && !mobile"
+                        color="white"
+                        activator="parent"
+                        location="end"
+                        >Títulos de Jugadores</v-tooltip
+                    ></v-list-item
+                >
+            </v-list-group>
             <v-list-item
-                :class="[route_current == 'operarios.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('operarios.index')"
-                prepend-icon="mdi-account-group-outline"
-                @click="cambiarUrl(route('operarios.index'))"
+                :class="[route_current == 'fichajes.index' ? 'active' : '']"
+                v-if="oUser.permisos.includes('fichajes.index')"
+                prepend-icon="mdi-clipboard-edit"
+                @click="cambiarUrl(route('fichajes.index'))"
                 link
             >
-                <v-list-item-title>Operarios</v-list-item-title>
+                <v-list-item-title>Fichajes</v-list-item-title>
                 <v-tooltip
                     v-if="rail && !mobile"
                     color="white"
                     activator="parent"
                     location="end"
-                    >Operarios</v-tooltip
+                    >Fichajes</v-tooltip
                 >
             </v-list-item>
-
-            <v-list-item
-                :class="[route_current == 'materials.index' ? 'active' : '']"
-                v-if="oUser.permisos.includes('materials.index')"
-                prepend-icon="mdi-view-list-outline"
-                @click="cambiarUrl(route('materials.index'))"
-                link
-            >
-                <v-list-item-title>Materiales</v-list-item-title>
-                <v-tooltip
-                    v-if="rail && !mobile"
-                    color="white"
-                    activator="parent"
-                    location="end"
-                    >Materiales</v-tooltip
-                >
-            </v-list-item>
-
             <v-list-item
                 :class="[route_current == 'usuarios.index' ? 'active' : '']"
                 v-if="oUser.permisos.includes('usuarios.index')"
@@ -254,18 +355,18 @@ const scrollActive = () => {
                 ><span v-if="rail && !mobile" class="text-center d-block"
                     ><v-icon>mdi-dots-horizontal</v-icon></span
                 >
-                <span v-else>MULTINIVEL</span></v-list-item
+                <span v-else>REPORTES</span></v-list-item
             >
-            <!-- SUBGROUP -->
-            <v-list-group value="Multinivel1">
+            <!-- SUBGROUP 3 -->
+            <v-list-group value="Reportes">
                 <template v-slot:activator="{ props }">
                     <v-list-item
                         v-bind="props"
-                        prepend-icon="mdi-list-box"
-                        title="Multinivel 1"
+                        prepend-icon="mdi-file-document-multiple"
+                        title="Reportes"
                         :class="[
-                            route_current == 'vuetify' ||
-                            route_current == 'vuetify2'
+                            route_current == 'usuarios.index' ||
+                            route_current == 'usuarios.index2'
                                 ? 'active'
                                 : '',
                         ]"
@@ -275,7 +376,7 @@ const scrollActive = () => {
                             color="white"
                             activator="parent"
                             location="end"
-                            >Multinivel 1</v-tooltip
+                            >Reportes</v-tooltip
                         ></v-list-item
                     >
                 </template>
