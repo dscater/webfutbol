@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-03-2024 a las 17:06:33
+-- Tiempo de generación: 28-03-2024 a las 22:30:30
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -69,6 +69,14 @@ CREATE TABLE `equipos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `equipos`
+--
+
+INSERT INTO `equipos` (`id`, `nombre`, `nombre_p`, `nombre_e`, `fundacion`, `colores`, `ubicacion`, `logo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'EQUIPO #1', 'JUAN PERES', 'EDUARDO MARTINEZ', '', 'AMARILLO', 'UBICACION EQUIPO #1', '1711663731_.png', '2024-03-28', '2024-03-28 22:08:51', '2024-03-28 22:08:58'),
+(2, 'EQUIPO #2', 'MARCOS MARTINEZ', 'JUAN GONZALES', '', 'AZUL Y BLANCO', '', NULL, '2024-03-28', '2024-03-28 22:20:38', '2024-03-28 22:20:38');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +95,13 @@ CREATE TABLE `equipo_titulos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `equipo_titulos`
+--
+
+INSERT INTO `equipo_titulos` (`id`, `equipo_id`, `titulo`, `anio`, `fecha`, `descripcion`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 'TITULO #1 (E1)', '2020', '2020-01-21', 'DESC. TITULO #1', 'NACIONAL', '2024-03-28', '2024-03-28 22:29:49', '2024-03-28 22:29:49');
 
 -- --------------------------------------------------------
 
@@ -137,7 +152,21 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (3, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$.p4CCebskMO2LcMm2BIUwuGkMMI5o2e5xp/NEhGWRSqoga3BtIK52<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:16<br/>', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$.p4CCebskMO2LcMm2BIUwuGkMMI5o2e5xp/NEhGWRSqoga3BtIK52<br/>nombre: JUANS<br/>paterno: PERESS<br/>materno: MAMANIS<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:37<br/>', 'USUARIOS', '2024-03-18', '11:54:37', '2024-03-18 15:54:37', '2024-03-18 15:54:37'),
 (4, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$.p4CCebskMO2LcMm2BIUwuGkMMI5o2e5xp/NEhGWRSqoga3BtIK52<br/>nombre: JUANS<br/>paterno: PERESS<br/>materno: MAMANIS<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:37<br/>', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$.p4CCebskMO2LcMm2BIUwuGkMMI5o2e5xp/NEhGWRSqoga3BtIK52<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:43<br/>', 'USUARIOS', '2024-03-18', '11:54:43', '2024-03-18 15:54:43', '2024-03-18 15:54:43'),
 (5, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$.p4CCebskMO2LcMm2BIUwuGkMMI5o2e5xp/NEhGWRSqoga3BtIK52<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:43<br/>', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$h3y1tnipwBuY3FJz42ZyFeSyuyASZZJNT9BIANV9RznTZ5VSpjzSW<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:46<br/>', 'USUARIOS', '2024-03-18', '11:54:46', '2024-03-18 15:54:46', '2024-03-18 15:54:46'),
-(6, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$h3y1tnipwBuY3FJz42ZyFeSyuyASZZJNT9BIANV9RznTZ5VSpjzSW<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:46<br/>', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$bi41OPTk65mY/ifmWga7J.1RERadX6tXsXbKh5mzytmMk2/g29pmu<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:54<br/>', 'USUARIOS', '2024-03-18', '11:54:54', '2024-03-18 15:54:54', '2024-03-18 15:54:54');
+(6, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN LA CONTRASEÑA DE UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$h3y1tnipwBuY3FJz42ZyFeSyuyASZZJNT9BIANV9RznTZ5VSpjzSW<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:46<br/>', 'id: 2<br/>usuario: JPERES<br/>password: $2y$12$bi41OPTk65mY/ifmWga7J.1RERadX6tXsXbKh5mzytmMk2/g29pmu<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>tipo: PERIODISTA<br/>foto: 1710777252_JPERES.jpg<br/>acceso: 1<br/>fecha_registro: 2024-03-18 00:00:00<br/>created_at: 2024-03-18 11:54:12<br/>updated_at: 2024-03-18 11:54:54<br/>', 'USUARIOS', '2024-03-18', '11:54:54', '2024-03-18 15:54:54', '2024-03-18 15:54:54'),
+(7, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663438_.jpeg<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:03:58<br/>', NULL, 'EQUIPOS', '2024-03-28', '18:03:58', '2024-03-28 22:03:58', '2024-03-28 22:03:58'),
+(8, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663438_.jpeg<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:03:58<br/>', 'id: 2<br/>nombre: EQUIPO #1S<br/>nombre_p: JUAN PERESS<br/>nombre_e: EDUARDO MARTINEZS<br/>fundacion: <br/>colores: AZUL Y ROJOS<br/>ubicacion: UBICACION EQUIPO #1S<br/>logo: 1711663438_.jpeg<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:07:42<br/>', 'EQUIPOS', '2024-03-28', '18:07:42', '2024-03-28 22:07:42', '2024-03-28 22:07:42'),
+(9, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #1S<br/>nombre_p: JUAN PERESS<br/>nombre_e: EDUARDO MARTINEZS<br/>fundacion: <br/>colores: AZUL Y ROJOS<br/>ubicacion: UBICACION EQUIPO #1S<br/>logo: 1711663438_.jpeg<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:07:42<br/>', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663670_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:07:50<br/>', 'EQUIPOS', '2024-03-28', '18:07:50', '2024-03-28 22:07:50', '2024-03-28 22:07:50'),
+(10, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663670_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:07:50<br/>', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663710_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:08:30<br/>', 'EQUIPOS', '2024-03-28', '18:08:30', '2024-03-28 22:08:30', '2024-03-28 22:08:30'),
+(11, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663710_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:03:58<br/>updated_at: 2024-03-28 18:08:30<br/>', NULL, 'EQUIPOS', '2024-03-28', '18:08:34', '2024-03-28 22:08:34', '2024-03-28 22:08:34'),
+(12, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN EQUIPO', 'id: 1<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663731_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:08:51<br/>updated_at: 2024-03-28 18:08:51<br/>', NULL, 'EQUIPOS', '2024-03-28', '18:08:51', '2024-03-28 22:08:51', '2024-03-28 22:08:51'),
+(13, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN EQUIPO', 'id: 1<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AZUL Y ROJO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663731_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:08:51<br/>updated_at: 2024-03-28 18:08:51<br/>', 'id: 1<br/>nombre: EQUIPO #1<br/>nombre_p: JUAN PERES<br/>nombre_e: EDUARDO MARTINEZ<br/>fundacion: <br/>colores: AMARILLO<br/>ubicacion: UBICACION EQUIPO #1<br/>logo: 1711663731_.png<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:08:51<br/>updated_at: 2024-03-28 18:08:58<br/>', 'EQUIPOS', '2024-03-28', '18:08:58', '2024-03-28 22:08:58', '2024-03-28 22:08:58'),
+(14, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #2<br/>nombre_p: MARCOS MARTINEZ<br/>nombre_e: JUAN GONZALES<br/>fundacion: <br/>colores: AZUL Y BLANCO<br/>ubicacion: <br/>logo: <br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:20:38<br/>updated_at: 2024-03-28 18:20:38<br/>', NULL, 'EQUIPOS', '2024-03-28', '18:20:38', '2024-03-28 22:20:38', '2024-03-28 22:20:38'),
+(15, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN EQUIPO', 'id: 2<br/>nombre: EQUIPO #2<br/>nombre_p: MARCOS MARTINEZ<br/>nombre_e: JUAN GONZALES<br/>fundacion: <br/>colores: AZUL Y BLANCO<br/>ubicacion: <br/>logo: <br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:20:38<br/>updated_at: 2024-03-28 18:20:38<br/>', 'id: 2<br/>nombre: EQUIPO #2<br/>nombre_p: MARCOS MARTINEZ<br/>nombre_e: JUAN GONZALES<br/>fundacion: <br/>colores: AZUL Y BLANCO<br/>ubicacion: <br/>logo: <br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:20:38<br/>updated_at: 2024-03-28 18:20:38<br/>', 'EQUIPOS', '2024-03-28', '18:20:43', '2024-03-28 22:20:43', '2024-03-28 22:20:43'),
+(16, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:44<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:27:44', '2024-03-28 22:27:44', '2024-03-28 22:27:44'),
+(17, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:44<br/>', 'id: 1<br/>equipo_id: 2<br/>titulo: TITULO #1 (E1)S<br/>anio: 2013S<br/>fecha: 2013-03-04<br/>descripcion: DESCRIPCION TITULOS<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:55<br/>', 'TÍTULO DE EQUIPOS', '2024-03-28', '18:27:55', '2024-03-28 22:27:55', '2024-03-28 22:27:55'),
+(18, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 2<br/>titulo: TITULO #1 (E1)S<br/>anio: 2013S<br/>fecha: 2013-03-04<br/>descripcion: DESCRIPCION TITULOS<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:55<br/>', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:28:04<br/>', 'TÍTULO DE EQUIPOS', '2024-03-28', '18:28:04', '2024-03-28 22:28:04', '2024-03-28 22:28:04'),
+(19, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:28:04<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:28:44', '2024-03-28 22:28:44', '2024-03-28 22:28:44'),
+(20, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2020<br/>fecha: 2020-01-21<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:29:49<br/>updated_at: 2024-03-28 18:29:49<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:29:49', '2024-03-28 22:29:49', '2024-03-28 22:29:49');
 
 -- --------------------------------------------------------
 
@@ -473,13 +502,13 @@ ALTER TABLE `alineacion_equipos`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo_titulos`
 --
 ALTER TABLE `equipo_titulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `fichajes`
@@ -491,7 +520,7 @@ ALTER TABLE `fichajes`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `institucions`

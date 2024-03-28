@@ -7,7 +7,7 @@ const breadbrums = [
         name_url: "inicio",
     },
     {
-        title: "Categorías",
+        title: "Equipos",
         disabled: false,
         url: "",
         name_url: "",
@@ -18,7 +18,7 @@ const breadbrums = [
 import BreadBrums from "@/Components/BreadBrums.vue";
 import { useApp } from "@/composables/useApp";
 import { Head } from "@inertiajs/vue3";
-import { useCategorias } from "@/composables/categorias/useCategorias";
+import { useEquipos } from "@/composables/equipos/useEquipos";
 import { ref, onMounted } from "vue";
 import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
@@ -31,37 +31,20 @@ onMounted(() => {
     }, 300);
 });
 
-const { getCategoriasApi, setCategoria, limpiarCategoria, deleteCategoria } =
-    useCategorias();
-const responseCategorias = ref([]);
-const listCategorias = ref([]);
+const { getEquiposApi, setEquipo, limpiarEquipo, deleteEquipo } = useEquipos();
+const responseEquipos = ref([]);
+const listEquipos = ref([]);
 const itemsPerPage = ref(5);
 const headers = ref([
-    {
-        title: "Id",
-        align: "start",
-        key: "id",
-        sortable: false,
-    },
-    {
-        title: "Nombre de Categoria",
-        key: "nombre",
-        align: "start",
-        sortable: false,
-    },
-    {
-        title: "Nro. de Avances",
-        key: "nro_avances",
-        align: "start",
-        sortable: false,
-    },
-    {
-        title: "Fecha de Registro",
-        key: "fecha_registro",
-        align: "start",
-        sortable: false,
-    },
-    { title: "Acción", key: "accion", align: "end", sortable: false },
+    { title: "Nombre del Equipo", align: "start", sortable: false },
+    { title: "Nombre del Presidente", align: "start", sortable: false },
+    { title: "Nombre del Entrenador", align: "start", sortable: false },
+    { title: "Fundación", align: "start", sortable: false },
+    { title: "Colores", align: "start", sortable: false },
+    { title: "Ubicación", align: "start", sortable: false },
+    { title: "Logo", align: "start", sortable: false },
+    { title: "Fecha de Registro", align: "start", sortable: false },
+    { title: "Acción", align: "end", sortable: false },
 ]);
 
 const search = ref("");
@@ -87,19 +70,19 @@ const loadItems = async ({ page, itemsPerPage, sortBy }) => {
 
     clearInterval(setTimeOutLoadData);
     setTimeOutLoadData = setTimeout(async () => {
-        responseCategorias.value = await getCategoriasApi(options.value);
-        listCategorias.value = responseCategorias.value.data;
-        totalItems.value = parseInt(responseCategorias.value.total);
+        responseEquipos.value = await getEquiposApi(options.value);
+        listEquipos.value = responseEquipos.value.data;
+        totalItems.value = parseInt(responseEquipos.value.total);
         loading.value = false;
     }, 300);
 };
-const recargaCategorias = async () => {
+const recargaEquipos = async () => {
     loading.value = true;
-    listCategorias.value = [];
+    listEquipos.value = [];
     options.value.search = search.value;
-    responseCategorias.value = await getCategoriasApi(options.value);
-    listCategorias.value = responseCategorias.value.data;
-    totalItems.value = parseInt(responseCategorias.value.total);
+    responseEquipos.value = await getEquiposApi(options.value);
+    listEquipos.value = responseEquipos.value.data;
+    totalItems.value = parseInt(responseEquipos.value.total);
     setTimeout(() => {
         loading.value = false;
         open_dialog.value = false;
@@ -109,16 +92,17 @@ const accion_dialog = ref(0);
 const open_dialog = ref(false);
 
 const agregarRegistro = () => {
-    limpiarCategoria();
+    limpiarEquipo();
     accion_dialog.value = 0;
     open_dialog.value = true;
 };
-const editarCategoria = (item) => {
-    setCategoria(item);
+const editarEquipo = (item) => {
+    setEquipo(item);
     accion_dialog.value = 1;
     open_dialog.value = true;
 };
-const eliminarCategoria = (item) => {
+
+const eliminarEquipo = (item) => {
     Swal.fire({
         title: "¿Quierés eliminar este registro?",
         html: `<strong>${item.nombre}</strong>`,
@@ -130,16 +114,16 @@ const eliminarCategoria = (item) => {
     }).then(async (result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            let respuesta = await deleteCategoria(item.id);
+            let respuesta = await deleteEquipo(item.id);
             if (respuesta && respuesta.sw) {
-                recargaCategorias();
+                recargaEquipos();
             }
         }
     });
 };
 </script>
 <template>
-    <Head title="Categorías"></Head>
+    <Head title="Equipos"></Head>
     <v-container>
         <BreadBrums :breadbrums="breadbrums"></BreadBrums>
         <v-row class="mt-0">
@@ -158,7 +142,7 @@ const eliminarCategoria = (item) => {
                 <v-card flat>
                     <v-card-title>
                         <v-row class="bg-primary d-flex align-center pa-3">
-                            <v-col cols="12" sm="6" md="4"> Categorías </v-col>
+                            <v-col cols="12" sm="6" md="4"> Equipos </v-col>
                             <v-col cols="12" sm="6" md="4" offset-md="4">
                                 <v-text-field
                                     v-model="search"
@@ -177,7 +161,7 @@ const eliminarCategoria = (item) => {
                             :headers="!mobile ? headers : []"
                             :class="[mobile ? 'mobile' : '']"
                             :items-length="totalItems"
-                            :items="listCategorias"
+                            :items="listEquipos"
                             :loading="loading"
                             :search="search"
                             @update:options="loadItems"
@@ -199,10 +183,26 @@ const eliminarCategoria = (item) => {
                         >
                             <template v-slot:item="{ item }">
                                 <tr v-if="!mobile">
-                                    <td>{{ item.id }}</td>
                                     <td>{{ item.nombre }}</td>
+                                    <td class="text-xs-right">
+                                        {{ item.nombre_p }}
+                                    </td>
+                                    <td>{{ item.nombre_e }}</td>
+                                    <td>{{ item.fundacion }}</td>
+                                    <td>{{ item.colores }}</td>
+                                    <td>{{ item.ubicacion }}</td>
                                     <td>
-                                        {{ item.nro_avances }}
+                                        <v-avatar color="primary">
+                                            <v-img
+                                                v-if="item.url_logo"
+                                                :src="item.url_logo"
+                                                cover
+                                                :lazy-src="item.url_logo"
+                                            ></v-img>
+                                            <span v-else>{{
+                                                item.iniciales_nombre
+                                            }}</span>
+                                        </v-avatar>
                                     </td>
                                     <td>{{ item.fecha_registro_t }}</td>
                                     <td class="text-right">
@@ -210,14 +210,14 @@ const eliminarCategoria = (item) => {
                                             color="yellow"
                                             size="small"
                                             class="pa-1 ma-1"
-                                            @click="editarCategoria(item)"
+                                            @click="editarEquipo(item)"
                                             icon="mdi-pencil"
                                         ></v-btn>
                                         <v-btn
                                             color="error"
                                             size="small"
                                             class="pa-1 ma-1"
-                                            @click="eliminarCategoria(item)"
+                                            @click="eliminarEquipo(item)"
                                             icon="mdi-trash-can"
                                         ></v-btn>
                                     </td>
@@ -227,27 +227,63 @@ const eliminarCategoria = (item) => {
                                         <ul class="flex-content">
                                             <li
                                                 class="flex-item"
-                                                data-label="Id"
-                                            >
-                                                {{ item.id }}
-                                            </li>
-                                            <li
-                                                class="flex-item"
-                                                data-label="Nombre de Categoria:"
+                                                data-label="Nombre del Equipo"
                                             >
                                                 {{ item.nombre }}
                                             </li>
                                             <li
                                                 class="flex-item"
-                                                data-label="Nro. de Avances:"
+                                                data-label="Nombre del Presidente"
                                             >
-                                                {{ item.nro_avances }}
+                                                {{ item.nombre_p }}
                                             </li>
                                             <li
                                                 class="flex-item"
-                                                data-label="Fecha de Registro:"
+                                                data-label="Nombre del Entrenador"
                                             >
-                                                {{ item.fecha_registro_t }}
+                                                {{ item.nombre_e }}
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Fundación"
+                                            >
+                                                {{ item.fundacion }}
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Colores"
+                                            >
+                                                {{ item.colores }}
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Ubicación"
+                                            >
+                                                {{ item.ubicacion }}
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Logo"
+                                            >
+                                                <v-avatar color="primary">
+                                                    <v-img
+                                                        v-if="item.url_logo"
+                                                        :src="item.url_logo"
+                                                        cover
+                                                        :lazy-src="
+                                                            item.url_logo
+                                                        "
+                                                    ></v-img>
+                                                    <span v-else>{{
+                                                        item.iniciales_nombre
+                                                    }}</span>
+                                                </v-avatar>
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Fecha de Registro"
+                                            >
+                                                {{ item.fecha_registro }}
                                             </li>
                                         </ul>
                                         <v-row>
@@ -259,9 +295,7 @@ const eliminarCategoria = (item) => {
                                                     color="yellow"
                                                     size="small"
                                                     class="pa-1 ma-1"
-                                                    @click="
-                                                        editarCategoria(item)
-                                                    "
+                                                    @click="editarEquipo(item)"
                                                     icon="mdi-pencil"
                                                 ></v-btn>
                                                 <v-btn
@@ -269,7 +303,7 @@ const eliminarCategoria = (item) => {
                                                     size="small"
                                                     class="pa-1 ma-1"
                                                     @click="
-                                                        eliminarCategoria(item)
+                                                        eliminarEquipo(item)
                                                     "
                                                     icon="mdi-trash-can"
                                                 ></v-btn>
@@ -286,7 +320,7 @@ const eliminarCategoria = (item) => {
         <Formulario
             :open_dialog="open_dialog"
             :accion_dialog="accion_dialog"
-            @envio-formulario="recargaCategorias"
+            @envio-formulario="recargaEquipos"
             @cerrar-dialog="open_dialog = false"
         ></Formulario>
     </v-container>

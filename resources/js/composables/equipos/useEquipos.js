@@ -2,22 +2,26 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const oCategoria = ref({
+const oEquipo = ref({
     id: 0,
     nombre: "",
-    nro_avances: "",
-    fecha_registro: "",
+    nombre_p: "",
+    nombre_e: "",
+    fundacion: "",
+    colores: "",
+    ubicacion: "",
+    logo: null,
     _method: "POST",
 });
 
-export const useCategorias = () => {
+export const useEquipos = () => {
     const { flash } = usePage().props;
-    const getCategorias = async () => {
+    const getEquipos = async () => {
         try {
-            const response = await axios.get(route("categorias.listado"), {
+            const response = await axios.get(route("equipos.listado"), {
                 headers: { Accept: "application/json" },
             });
-            return response.data.categorias;
+            return response.data.equipos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -36,15 +40,12 @@ export const useCategorias = () => {
         }
     };
 
-    const getCategoriasApi = async (data) => {
+    const getEquiposApi = async (data) => {
         try {
-            const response = await axios.get(
-                route("categorias.paginado", data),
-                {
-                    headers: { Accept: "application/json" },
-                }
-            );
-            return response.data.categorias;
+            const response = await axios.get(route("equipos.paginado", data), {
+                headers: { Accept: "application/json" },
+            });
+            return response.data.equipos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -62,9 +63,9 @@ export const useCategorias = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
-    const saveCategoria = async (data) => {
+    const saveEquipo = async (data) => {
         try {
-            const response = await axios.post(route("categorias.store", data), {
+            const response = await axios.post(route("equipos.store", data), {
                 headers: { Accept: "application/json" },
             });
             Swal.fire({
@@ -94,14 +95,11 @@ export const useCategorias = () => {
         }
     };
 
-    const deleteCategoria = async (id) => {
+    const deleteEquipo = async (id) => {
         try {
-            const response = await axios.delete(
-                route("categorias.destroy", id),
-                {
-                    headers: { Accept: "application/json" },
-                }
-            );
+            const response = await axios.delete(route("equipos.destroy", id), {
+                headers: { Accept: "application/json" },
+            });
             Swal.fire({
                 icon: "success",
                 title: "Correcto",
@@ -129,35 +127,43 @@ export const useCategorias = () => {
         }
     };
 
-    const setCategoria = (item = null) => {
+    const setEquipo = (item = null) => {
         if (item) {
-            oCategoria.value.id = item.id;
-            oCategoria.value.nombre = item.nombre;
-            oCategoria.value.nro_avances = item.nro_avances;
-            oCategoria.value.fecha_registro = item.fecha_registro;
-            oCategoria.value._method = "PUT";
-            return oCategoria;
+            oEquipo.value.id = item.id;
+            oEquipo.value.nombre = item.nombre;
+            oEquipo.value.nombre_p = item.nombre_p;
+            oEquipo.value.nombre_e = item.nombre_e;
+            oEquipo.value.fundacion = item.fundacion;
+            oEquipo.value.colores = item.colores;
+            oEquipo.value.ubicacion = item.ubicacion;
+            oEquipo.value.logo = item.logo;
+            oEquipo.value._method = "PUT";
+            return oEquipo;
         }
         return false;
     };
 
-    const limpiarCategoria = () => {
-        oCategoria.value.id = 0;
-        oCategoria.value.nombre = "";
-        oCategoria.value.nro_avances = "";
-        oCategoria.value.fecha_registro = "";
-        oCategoria.value._method = "POST";
+    const limpiarEquipo = () => {
+        oEquipo.value.id = 0;
+        oEquipo.nombre = "";
+        oEquipo.nombre_p = "";
+        oEquipo.nombre_e = "";
+        oEquipo.fundacion = "";
+        oEquipo.colores = "";
+        oEquipo.ubicacion = "";
+        oEquipo.logo = null;
+        oEquipo.value._method = "POST";
     };
 
     onMounted(() => {});
 
     return {
-        oCategoria,
-        getCategorias,
-        getCategoriasApi,
-        saveCategoria,
-        deleteCategoria,
-        setCategoria,
-        limpiarCategoria,
+        oEquipo,
+        getEquipos,
+        getEquiposApi,
+        saveEquipo,
+        deleteEquipo,
+        setEquipo,
+        limpiarEquipo,
     };
 };

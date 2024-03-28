@@ -137,7 +137,10 @@ const scrollActive = () => {
             </v-list-item>
             <v-list-item
                 class="text-caption"
-                v-if="oUser.permisos.includes('usuarios.index')"
+                v-if="
+                    oUser.permisos.includes('usuarios.index') ||
+                    oUser.permisos.includes('equipos.index')
+                "
             >
                 <span v-if="rail && !mobile" class="text-center d-block"
                     ><v-icon>mdi-dots-horizontal</v-icon></span

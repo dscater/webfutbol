@@ -1,15 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\EquipoTituloController;
 use App\Http\Controllers\InstitucionController;
-use App\Http\Controllers\MaquinariaController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\ObraController;
-use App\Http\Controllers\OperarioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -81,39 +77,18 @@ Route::middleware('auth')->group(function () {
         ["index", "store"]
     );
 
-    // MATERIALES
-    Route::get("/materials/paginado", [MaterialController::class, 'paginado'])->name("materials.paginado");
-    Route::get("/materials/listado", [MaterialController::class, 'listado'])->name("materials.listado");
-    Route::resource("materials", MaterialController::class)->only(
+    // EQUIPOS
+    Route::get("/equipos/paginado", [EquipoController::class, 'paginado'])->name("equipos.paginado");
+    Route::get("/equipos/listado", [EquipoController::class, 'listado'])->name("equipos.listado");
+    Route::resource("equipos", EquipoController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 
-    // OPERARIOS
-    Route::get("/operarios/paginado", [OperarioController::class, 'paginado'])->name("operarios.paginado");
-    Route::get("/operarios/listado", [OperarioController::class, 'listado'])->name("operarios.listado");
-    Route::resource("operarios", OperarioController::class)->only(
+    // EQUIPOS TITULOS
+    Route::get("/equipo_titulos/paginado", [EquipoTituloController::class, 'paginado'])->name("equipo_titulos.paginado");
+    Route::get("/equipo_titulos/listado", [EquipoTituloController::class, 'listado'])->name("equipo_titulos.listado");
+    Route::resource("equipo_titulos", EquipoTituloController::class)->only(
         ["index", "store", "update", "show", "destroy"]
-    );
-
-    // MAQUINARIAS
-    Route::get("/maquinarias/paginado", [MaquinariaController::class, 'paginado'])->name("maquinarias.paginado");
-    Route::get("/maquinarias/listado", [MaquinariaController::class, 'listado'])->name("maquinarias.listado");
-    Route::resource("maquinarias", MaquinariaController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
-    );
-
-    // CATEGORIAS
-    Route::get("/categorias/paginado", [CategoriaController::class, 'paginado'])->name("categorias.paginado");
-    Route::get("/categorias/listado", [CategoriaController::class, 'listado'])->name("categorias.listado");
-    Route::resource("categorias", CategoriaController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
-    );
-
-    // OBRAS
-    Route::get("/obras/paginado", [ObraController::class, 'paginado'])->name("obras.paginado");
-    Route::get("/obras/listado", [ObraController::class, 'listado'])->name("obras.listado");
-    Route::resource("obras", ObraController::class)->only(
-        ["index", "create", "edit", "store", "update", "show", "destroy"]
     );
 });
 
