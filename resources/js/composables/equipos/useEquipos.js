@@ -145,13 +145,13 @@ export const useEquipos = () => {
 
     const limpiarEquipo = () => {
         oEquipo.value.id = 0;
-        oEquipo.nombre = "";
-        oEquipo.nombre_p = "";
-        oEquipo.nombre_e = "";
-        oEquipo.fundacion = "";
-        oEquipo.colores = "";
-        oEquipo.ubicacion = "";
-        oEquipo.logo = null;
+        oEquipo.value.nombre = "";
+        oEquipo.value.nombre_p = "";
+        oEquipo.value.nombre_e = "";
+        oEquipo.value.fundacion = "";
+        oEquipo.value.colores = "";
+        oEquipo.value.ubicacion = "";
+        oEquipo.value.logo = null;
         oEquipo.value._method = "POST";
     };
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\JugadorTituloController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TablaPosicionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -112,6 +113,13 @@ Route::middleware('auth')->group(function () {
     Route::get("/fichajes/paginado", [FichajeController::class, 'paginado'])->name("fichajes.paginado");
     Route::get("/fichajes/listado", [FichajeController::class, 'listado'])->name("fichajes.listado");
     Route::resource("fichajes", FichajeController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // TABLA DE POSICIONES
+    Route::get("/tabla_posicions/paginado", [TablaPosicionController::class, 'paginado'])->name("tabla_posicions.paginado");
+    Route::get("/tabla_posicions/listado", [TablaPosicionController::class, 'listado'])->name("tabla_posicions.listado");
+    Route::resource("tabla_posicions", TablaPosicionController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 });

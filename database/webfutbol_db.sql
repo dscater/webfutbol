@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 29-03-2024 a las 17:34:37
+-- Tiempo de generación: 29-03-2024 a las 21:25:39
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -198,7 +198,11 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (41, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-01<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:23:59<br/>', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:08<br/>', 'FICHAJES', '2024-03-29', '13:24:08', '2024-03-29 17:24:08', '2024-03-29 17:24:08'),
 (42, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:08<br/>', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:20<br/>', 'FICHAJES', '2024-03-29', '13:24:20', '2024-03-29 17:24:20', '2024-03-29 17:24:20'),
 (43, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:20<br/>', NULL, 'FICHAJES', '2024-03-29', '13:24:55', '2024-03-29 17:24:55', '2024-03-29 17:24:55'),
-(44, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-02-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:25:14<br/>updated_at: 2024-03-29 13:25:14<br/>', NULL, 'FICHAJES', '2024-03-29', '13:25:14', '2024-03-29 17:25:14', '2024-03-29 17:25:14');
+(44, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-02-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:25:14<br/>updated_at: 2024-03-29 13:25:14<br/>', NULL, 'FICHAJES', '2024-03-29', '13:25:14', '2024-03-29 17:25:14', '2024-03-29 17:25:14'),
+(45, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA TABLA DE POSICION', 'id: 1<br/>equipo_id: 1<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 10<br/>e: 5<br/>p: 5<br/>gf: 20<br/>gc: 13<br/>dg: 7<br/>pts: 30<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 17:23:17<br/>updated_at: 2024-03-29 17:23:17<br/>', NULL, 'TABLA DE POSICIONES', '2024-03-29', '17:23:17', '2024-03-29 21:23:17', '2024-03-29 21:23:17'),
+(46, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA TABLA DE POSICION', 'id: 1<br/>equipo_id: 1<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 10<br/>e: 5<br/>p: 5<br/>gf: 20<br/>gc: 13<br/>dg: 7<br/>pts: 30<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 17:23:17<br/>updated_at: 2024-03-29 17:23:17<br/>', 'id: 1<br/>equipo_id: 1<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 10<br/>e: 5<br/>p: 5<br/>gf: 20<br/>gc: 13<br/>dg: 7<br/>pts: 35<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 17:23:17<br/>updated_at: 2024-03-29 17:23:52<br/>', 'TABLA DE POSICIONES', '2024-03-29', '17:23:52', '2024-03-29 21:23:52', '2024-03-29 21:23:52'),
+(47, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA TABLA DE POSICION', 'id: 2<br/>equipo_id: 1<br/>tipo_torneo: CLAUSURA<br/>temporada: 2023<br/>pj: 20<br/>g: 2<br/>e: 2<br/>p: 2<br/>gf: 2<br/>gc: 2<br/>dg: 2<br/>pts: 2<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 17:24:55<br/>updated_at: 2024-03-29 17:24:55<br/>', NULL, 'TABLA DE POSICIONES', '2024-03-29', '17:24:55', '2024-03-29 21:24:55', '2024-03-29 21:24:55'),
+(48, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UNA TABLA DE POSICION', 'id: 2<br/>equipo_id: 1<br/>tipo_torneo: CLAUSURA<br/>temporada: 2023<br/>pj: 20<br/>g: 2<br/>e: 2<br/>p: 2<br/>gf: 2<br/>gc: 2<br/>dg: 2<br/>pts: 2<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 17:24:55<br/>updated_at: 2024-03-29 17:24:55<br/>', NULL, 'TABLA DE POSICIONES', '2024-03-29', '17:24:58', '2024-03-29 21:24:58', '2024-03-29 21:24:58');
 
 -- --------------------------------------------------------
 
@@ -396,6 +400,13 @@ CREATE TABLE `tabla_posicions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `tabla_posicions`
+--
+
+INSERT INTO `tabla_posicions` (`id`, `equipo_id`, `tipo_torneo`, `temporada`, `pj`, `g`, `e`, `p`, `gf`, `gc`, `dg`, `pts`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 'APERTURA', 2023, 20, 10, 5, 5, 20, 13, 7, 35, '2024-03-29', '2024-03-29 21:23:17', '2024-03-29 21:23:52');
+
 -- --------------------------------------------------------
 
 --
@@ -567,7 +578,7 @@ ALTER TABLE `fichajes`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `institucions`
@@ -609,7 +620,7 @@ ALTER TABLE `prediccion_partidos`
 -- AUTO_INCREMENT de la tabla `tabla_posicions`
 --
 ALTER TABLE `tabla_posicions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

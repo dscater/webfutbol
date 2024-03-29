@@ -152,12 +152,12 @@ export const useJugadorTitulos = () => {
 
     const limpiarJugadorTitulo = () => {
         oJugadorTitulo.value.id = 0;
-        oJugadorTitulo.jugador_id = "";
-        oJugadorTitulo.titulo = "";
-        oJugadorTitulo.anio = "";
-        oJugadorTitulo.fecha = "";
-        oJugadorTitulo.descripcion = "";
-        oJugadorTitulo.tipo = "";
+        oJugadorTitulo.value.jugador_id = "";
+        oJugadorTitulo.value.titulo = "";
+        oJugadorTitulo.value.anio = "";
+        oJugadorTitulo.value.fecha = "";
+        oJugadorTitulo.value.descripcion = "";
+        oJugadorTitulo.value.tipo = "";
         oJugadorTitulo.value._method = "POST";
     };
 

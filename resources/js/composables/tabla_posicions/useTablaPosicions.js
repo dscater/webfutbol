@@ -2,25 +2,30 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const oEquipoTitulo = ref({
+const oTablaPosicion = ref({
     id: 0,
-    equipo_id: "",
-    titulo: "",
-    anio: "",
-    fecha: "",
-    descripcion: "",
-    tipo: "",
+    equipo_id: null,
+    tipo_torneo: null,
+    temporada: "",
+    pj: "",
+    g: "",
+    e: "",
+    p: "",
+    gf: "",
+    gc: "",
+    dg: "",
+    pts: "",
     _method: "POST",
 });
 
-export const useEquipoTitulos = () => {
+export const useTablaPosicions = () => {
     const { flash } = usePage().props;
-    const getEquipoTitulos = async () => {
+    const getTablaPosicions = async () => {
         try {
-            const response = await axios.get(route("equipo_titulos.listado"), {
+            const response = await axios.get(route("tabla_posicions.listado"), {
                 headers: { Accept: "application/json" },
             });
-            return response.data.equipo_titulos;
+            return response.data.tabla_posicions;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -39,15 +44,15 @@ export const useEquipoTitulos = () => {
         }
     };
 
-    const getEquipoTitulosApi = async (data) => {
+    const getTablaPosicionsApi = async (data) => {
         try {
             const response = await axios.get(
-                route("equipo_titulos.paginado", data),
+                route("tabla_posicions.paginado", data),
                 {
                     headers: { Accept: "application/json" },
                 }
             );
-            return response.data.equipo_titulos;
+            return response.data.tabla_posicions;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -65,10 +70,10 @@ export const useEquipoTitulos = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
-    const saveEquipoTitulo = async (data) => {
+    const saveTablaPosicion = async (data) => {
         try {
             const response = await axios.post(
-                route("equipo_titulos.store", data),
+                route("tabla_posicions.store", data),
                 {
                     headers: { Accept: "application/json" },
                 }
@@ -100,10 +105,10 @@ export const useEquipoTitulos = () => {
         }
     };
 
-    const deleteEquipoTitulo = async (id) => {
+    const deleteTablaPosicion = async (id) => {
         try {
             const response = await axios.delete(
-                route("equipo_titulos.destroy", id),
+                route("tabla_posicions.destroy", id),
                 {
                     headers: { Accept: "application/json" },
                 }
@@ -135,41 +140,51 @@ export const useEquipoTitulos = () => {
         }
     };
 
-    const setEquipoTitulo = (item = null) => {
+    const setTablaPosicion = (item = null) => {
         if (item) {
-            oEquipoTitulo.value.id = item.id;
-            oEquipoTitulo.value.equipo_id = item.equipo_id;
-            oEquipoTitulo.value.titulo = item.titulo;
-            oEquipoTitulo.value.anio = item.anio;
-            oEquipoTitulo.value.fecha = item.fecha;
-            oEquipoTitulo.value.descripcion = item.descripcion;
-            oEquipoTitulo.value.tipo = item.tipo;
-            oEquipoTitulo.value._method = "PUT";
-            return oEquipoTitulo;
+            oTablaPosicion.value.id = item.id;
+            oTablaPosicion.value.equipo_id = item.equipo_id;
+            oTablaPosicion.value.tipo_torneo = item.tipo_torneo;
+            oTablaPosicion.value.temporada = item.temporada;
+            oTablaPosicion.value.pj = item.pj;
+            oTablaPosicion.value.g = item.g;
+            oTablaPosicion.value.e = item.e;
+            oTablaPosicion.value.p = item.p;
+            oTablaPosicion.value.gf = item.gf;
+            oTablaPosicion.value.gc = item.gc;
+            oTablaPosicion.value.dg = item.dg;
+            oTablaPosicion.value.pts = item.pts;
+            oTablaPosicion.value._method = "PUT";
+            return oTablaPosicion;
         }
         return false;
     };
 
-    const limpiarEquipoTitulo = () => {
-        oEquipoTitulo.value.id = 0;
-        oEquipoTitulo.value.equipo_id = "";
-        oEquipoTitulo.value.titulo = "";
-        oEquipoTitulo.value.anio = "";
-        oEquipoTitulo.value.fecha = "";
-        oEquipoTitulo.value.descripcion = "";
-        oEquipoTitulo.value.tipo = "";
-        oEquipoTitulo.value._method = "POST";
+    const limpiarTablaPosicion = () => {
+        oTablaPosicion.value.id = 0;
+        oTablaPosicion.value.equipo_id = null;
+        oTablaPosicion.value.tipo_torneo = null;
+        oTablaPosicion.value.temporada = "";
+        oTablaPosicion.value.pj = "";
+        oTablaPosicion.value.g = "";
+        oTablaPosicion.value.e = "";
+        oTablaPosicion.value.p = "";
+        oTablaPosicion.value.gf = "";
+        oTablaPosicion.value.gc = "";
+        oTablaPosicion.value.dg = "";
+        oTablaPosicion.value.pts = "";
+        oTablaPosicion.value._method = "POST";
     };
 
     onMounted(() => {});
 
     return {
-        oEquipoTitulo,
-        getEquipoTitulos,
-        getEquipoTitulosApi,
-        saveEquipoTitulo,
-        deleteEquipoTitulo,
-        setEquipoTitulo,
-        limpiarEquipoTitulo,
+        oTablaPosicion,
+        getTablaPosicions,
+        getTablaPosicionsApi,
+        saveTablaPosicion,
+        deleteTablaPosicion,
+        setTablaPosicion,
+        limpiarTablaPosicion,
     };
 };
