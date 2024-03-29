@@ -78,8 +78,7 @@ class UsuarioController extends Controller
 
         if (trim($search) != "") {
             $usuarios->where("nombre", "LIKE", "%$search%");
-            $usuarios->orWhere("paterno", "LIKE", "%$search%");
-            $usuarios->orWhere("materno", "LIKE", "%$search%");
+            $usuarios->orWhereRaw("CONCAT(nombre,' ', paterno,' ', materno) LIKE ?", ["%$search%"]);
             $usuarios->orWhere("ci", "LIKE", "%$search%");
         }
 

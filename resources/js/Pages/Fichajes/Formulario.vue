@@ -1,6 +1,6 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
-import { useEquipoTitulos } from "@/composables/equipo_titulos/useEquipoTitulos";
+import { useFichajes } from "@/composables/fichajes/useFichajes";
 import { useEquipos } from "@/composables/equipos/useEquipos";
 import { useJugadors } from "@/composables/jugadors/useJugadors";
 import { watch, ref, computed, defineEmits, onMounted } from "vue";
@@ -15,24 +15,22 @@ const props = defineProps({
     },
 });
 
-const { oEquipoTitulo, limpiarEquipoTitulo } = useEquipoTitulos();
+const { oFichaje, limpiarFichaje } = useFichajes();
 const { getEquipos } = useEquipos();
+const { getJugadors } = useJugadors();
 const accion = ref(props.accion_dialog);
 const dialog = ref(props.open_dialog);
 
 const listEquipos = ref([]);
-const listTipos = ref([
-    { value: "INTERNACIONAL", label: "INTERNACIONAL" },
-    { value: "NACIONAL", label: "NACIONAL" },
-]);
+const listJugadors = ref([]);
 
-let form = useForm(oEquipoTitulo.value);
+let form = useForm(oFichaje.value);
 watch(
     () => props.open_dialog,
     (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
-            form = useForm(oEquipoTitulo.value);
+            form = useForm(oFichaje.value);
         }
     }
 );
@@ -40,26 +38,21 @@ watch(
     () => props.accion_dialog,
     (newValue) => {
         accion.value = newValue;
+        cargarListas();
     }
 );
 
 const { flash } = usePage().props;
 
-const logo = ref(null);
-function cargaArchivo(e, key) {
-    form[key] = null;
-    form[key] = e.target.files[0];
-}
-
 const tituloDialog = computed(() => {
-    return accion.value == 0 ? `Agregar Título de Equipo` : `Editar Título de Equipo`;
+    return accion.value == 0 ? `Agregar Fichaje` : `Editar Fichaje`;
 });
 
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
-            ? route("equipo_titulos.store")
-            : route("equipo_titulos.update", form.id);
+            ? route("fichajes.store")
+            : route("fichajes.update", form.id);
 
     form.post(url, {
         preserveScroll: true,
@@ -72,7 +65,7 @@ const enviarFormulario = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            limpiarEquipoTitulo();
+            limpiarFichaje();
             emits("envio-formulario");
         },
         onError: (err) => {
@@ -104,9 +97,20 @@ watch(dialog, (newVal) => {
 const cerrarDialog = () => {
     dialog.value = false;
 };
-
 const cargarListas = async () => {
     listEquipos.value = await getEquipos();
+    if (form.id != "" && form.id != 0) {
+        console.log("AA");
+        listJugadors.value = await getJugadors({
+            sin_fichaje: true,
+            id: form.jugador_id,
+        });
+    } else {
+        console.log("BBB");
+        listJugadors.value = await getJugadors({
+            sin_fichaje: true,
+        });
+    }
 };
 
 onMounted(() => {
@@ -163,63 +167,107 @@ onMounted(() => {
                                     ></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field
+                                    <v-select
                                         :hide-details="
-                                            form.errors?.titulo ? false : true
+                                            form.errors?.jugador_id
+                                                ? false
+                                                : true
                                         "
                                         :error="
-                                            form.errors?.titulo ? true : false
+                                            form.errors?.jugador_id
+                                                ? true
+                                                : false
                                         "
                                         :error-messages="
-                                            form.errors?.titulo
-                                                ? form.errors?.titulo
+                                            form.errors?.jugador_id
+                                                ? form.errors?.jugador_id
                                                 : ''
                                         "
+                                        density="compact"
                                         variant="outlined"
-                                        label="Nombre del Título*"
+                                        clearable
+                                        :items="listJugadors"
+                                        label="Seleccionar Jugador*"
+                                        item-value="id"
+                                        item-title="full_name"
+                                        v-model="form.jugador_id"
+                                        required
+                                    ></v-select>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field
+                                        :hide-details="
+                                            form.errors?.nro_polera
+                                                ? false
+                                                : true
+                                        "
+                                        :error="
+                                            form.errors?.nro_polera
+                                                ? true
+                                                : false
+                                        "
+                                        :error-messages="
+                                            form.errors?.nro_polera
+                                                ? form.errors?.nro_polera
+                                                : ''
+                                        "
+                                        type="number"
+                                        step="1"
+                                        min="1"
+                                        variant="outlined"
+                                        label="Número de Polera*"
                                         required
                                         density="compact"
-                                        v-model="form.titulo"
+                                        v-model="form.nro_polera"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
                                     <v-text-field
                                         :hide-details="
-                                            form.errors?.anio ? false : true
+                                            form.errors?.fecha_fichaje
+                                                ? false
+                                                : true
                                         "
                                         :error="
-                                            form.errors?.anio ? true : false
+                                            form.errors?.fecha_fichaje
+                                                ? true
+                                                : false
                                         "
                                         :error-messages="
-                                            form.errors?.anio
-                                                ? form.errors?.anio
-                                                : ''
-                                        "
-                                        density="compact"
-                                        variant="outlined"
-                                        label="Año*"
-                                        v-model="form.anio"
-                                        required
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field
-                                        :hide-details="
-                                            form.errors?.fecha ? false : true
-                                        "
-                                        :error="
-                                            form.errors?.fecha ? true : false
-                                        "
-                                        :error-messages="
-                                            form.errors?.fecha
-                                                ? form.errors?.fecha
+                                            form.errors?.fecha_fichaje
+                                                ? form.errors?.fecha_fichaje
                                                 : ''
                                         "
                                         type="date"
                                         density="compact"
                                         variant="outlined"
-                                        label="Fecha"
-                                        v-model="form.fecha"
+                                        label="Fecha de Fichaje*"
+                                        v-model="form.fecha_fichaje"
+                                        required
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field
+                                        :hide-details="
+                                            form.errors?.contrato_hasta
+                                                ? false
+                                                : true
+                                        "
+                                        :error="
+                                            form.errors?.contrato_hasta
+                                                ? true
+                                                : false
+                                        "
+                                        :error-messages="
+                                            form.errors?.contrato_hasta
+                                                ? form.errors?.contrato_hasta
+                                                : ''
+                                        "
+                                        type="date"
+                                        density="compact"
+                                        variant="outlined"
+                                        label="Contrato Hasta*"
+                                        v-model="form.contrato_hasta"
                                         required
                                     ></v-text-field>
                                 </v-col>
@@ -246,30 +294,6 @@ onMounted(() => {
                                         v-model="form.descripcion"
                                         required
                                     ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-select
-                                        :hide-details="
-                                            form.errors?.tipo ? false : true
-                                        "
-                                        :error="
-                                            form.errors?.tipo ? true : false
-                                        "
-                                        :error-messages="
-                                            form.errors?.tipo
-                                                ? form.errors?.tipo
-                                                : ''
-                                        "
-                                        density="compact"
-                                        variant="outlined"
-                                        clearable
-                                        :items="listTipos"
-                                        label="Tipo de Título*"
-                                        item-value="value"
-                                        item-title="label"
-                                        v-model="form.tipo"
-                                        required
-                                    ></v-select>
                                 </v-col>
                             </v-row>
                         </form>

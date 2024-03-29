@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string("correo", 255)->nullable();
             $table->string("fono", 155)->nullable();
             $table->string("dir", 255)->nullable();
+            $table->string("foto", 255)->nullable();
             $table->integer("nro_convocado");
             $table->integer("nro_alineaciones");
             $table->integer("minutos_jugados");

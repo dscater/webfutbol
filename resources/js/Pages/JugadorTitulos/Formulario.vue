@@ -1,7 +1,6 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
-import { useEquipoTitulos } from "@/composables/equipo_titulos/useEquipoTitulos";
-import { useEquipos } from "@/composables/equipos/useEquipos";
+import { useJugadorTitulos } from "@/composables/jugador_titulos/useJugadorTitulos";
 import { useJugadors } from "@/composables/jugadors/useJugadors";
 import { watch, ref, computed, defineEmits, onMounted } from "vue";
 const props = defineProps({
@@ -15,24 +14,24 @@ const props = defineProps({
     },
 });
 
-const { oEquipoTitulo, limpiarEquipoTitulo } = useEquipoTitulos();
-const { getEquipos } = useEquipos();
+const { oJugadorTitulo, limpiarJugadorTitulo } = useJugadorTitulos();
+const { getJugadors } = useJugadors();
 const accion = ref(props.accion_dialog);
 const dialog = ref(props.open_dialog);
 
-const listEquipos = ref([]);
+const listJugadors = ref([]);
 const listTipos = ref([
     { value: "INTERNACIONAL", label: "INTERNACIONAL" },
     { value: "NACIONAL", label: "NACIONAL" },
 ]);
 
-let form = useForm(oEquipoTitulo.value);
+let form = useForm(oJugadorTitulo.value);
 watch(
     () => props.open_dialog,
     (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
-            form = useForm(oEquipoTitulo.value);
+            form = useForm(oJugadorTitulo.value);
         }
     }
 );
@@ -52,14 +51,14 @@ function cargaArchivo(e, key) {
 }
 
 const tituloDialog = computed(() => {
-    return accion.value == 0 ? `Agregar Título de Equipo` : `Editar Título de Equipo`;
+    return accion.value == 0 ? `Agregar Título de Jugador` : `Editar Título de Jugador`;
 });
 
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
-            ? route("equipo_titulos.store")
-            : route("equipo_titulos.update", form.id);
+            ? route("jugador_titulos.store")
+            : route("jugador_titulos.update", form.id);
 
     form.post(url, {
         preserveScroll: true,
@@ -72,7 +71,7 @@ const enviarFormulario = () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: `Aceptar`,
             });
-            limpiarEquipoTitulo();
+            limpiarJugadorTitulo();
             emits("envio-formulario");
         },
         onError: (err) => {
@@ -106,7 +105,7 @@ const cerrarDialog = () => {
 };
 
 const cargarListas = async () => {
-    listEquipos.value = await getEquipos();
+    listJugadors.value = await getJugadors();
 };
 
 onMounted(() => {
@@ -137,28 +136,28 @@ onMounted(() => {
                                 <v-col cols="12" sm="6" md="4">
                                     <v-select
                                         :hide-details="
-                                            form.errors?.equipo_id
+                                            form.errors?.jugador_id
                                                 ? false
                                                 : true
                                         "
                                         :error="
-                                            form.errors?.equipo_id
+                                            form.errors?.jugador_id
                                                 ? true
                                                 : false
                                         "
                                         :error-messages="
-                                            form.errors?.equipo_id
-                                                ? form.errors?.equipo_id
+                                            form.errors?.jugador_id
+                                                ? form.errors?.jugador_id
                                                 : ''
                                         "
                                         density="compact"
                                         variant="outlined"
                                         clearable
-                                        :items="listEquipos"
-                                        label="Seleccionar Equipo*"
+                                        :items="listJugadors"
+                                        label="Seleccionar Jugador*"
                                         item-value="id"
-                                        item-title="nombre"
-                                        v-model="form.equipo_id"
+                                        item-title="full_name"
+                                        v-model="form.jugador_id"
                                         required
                                     ></v-select>
                                 </v-col>

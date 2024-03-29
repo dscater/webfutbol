@@ -68,7 +68,7 @@ class EquipoController extends Controller
             $nuevo_equipo = Equipo::create(array_map('mb_strtoupper', $request->except('logo')));
             if ($request->hasFile('logo')) {
                 $file = $request->logo;
-                $nom_logo = time() . '_' . $nuevo_equipo->equipo . '.' . $file->getClientOriginalExtension();
+                $nom_logo = time() . '_' . $nuevo_equipo->id . '.' . $file->getClientOriginalExtension();
                 $nuevo_equipo->logo = $nom_logo;
                 $file->move(public_path() . '/imgs/equipos/', $nom_logo);
             }
@@ -115,7 +115,7 @@ class EquipoController extends Controller
                     \File::delete(public_path() . '/imgs/equipos/' . $antiguo);
                 }
                 $file = $request->logo;
-                $nom_logo = time() . '_' . $equipo->equipo . '.' . $file->getClientOriginalExtension();
+                $nom_logo = time() . '_' . $equipo->id . '.' . $file->getClientOriginalExtension();
                 $equipo->logo = $nom_logo;
                 $file->move(public_path() . '/imgs/equipos/', $nom_logo);
             }
@@ -153,6 +153,9 @@ class EquipoController extends Controller
             if ($antiguo != 'default.png') {
                 \File::delete(public_path() . '/imgs/equipos/' . $antiguo);
             }
+
+            $equipo->equipo_titulos()->delete();
+
             $datos_original = HistorialAccion::getDetalleRegistro($equipo, "equipos");
             $equipo->delete();
             HistorialAccion::create([

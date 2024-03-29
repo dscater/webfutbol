@@ -32,12 +32,16 @@ class Equipo extends Model
 
     public function getInicialesNombreAttribute()
     {
-        $iniciales = substr($this->nombre, 0, 1) . substr($this->paterno, 0, 1);
+        $iniciales = substr($this->nombre, 0, 1);
         return $iniciales;
     }
 
     public function getFechaRegistroTAttribute()
     {
         return date("d/m/Y", strtotime($this->fecha_registro));
+    }
+    public function equipo_titulos()
+    {
+        return $this->hasMany(EquipoTitulo::class, 'equipo_id');
     }
 }

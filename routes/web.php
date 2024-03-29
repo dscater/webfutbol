@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\EquipoTituloController;
+use App\Http\Controllers\FichajeController;
 use App\Http\Controllers\InstitucionController;
+use App\Http\Controllers\JugadorController;
+use App\Http\Controllers\JugadorTituloController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
@@ -88,6 +91,27 @@ Route::middleware('auth')->group(function () {
     Route::get("/equipo_titulos/paginado", [EquipoTituloController::class, 'paginado'])->name("equipo_titulos.paginado");
     Route::get("/equipo_titulos/listado", [EquipoTituloController::class, 'listado'])->name("equipo_titulos.listado");
     Route::resource("equipo_titulos", EquipoTituloController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // JUGADORES
+    Route::get("/jugadors/paginado", [JugadorController::class, 'paginado'])->name("jugadors.paginado");
+    Route::get("/jugadors/listado", [JugadorController::class, 'listado'])->name("jugadors.listado");
+    Route::resource("jugadors", JugadorController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // JUGADORES TITULOS
+    Route::get("/jugador_titulos/paginado", [JugadorTituloController::class, 'paginado'])->name("jugador_titulos.paginado");
+    Route::get("/jugador_titulos/listado", [JugadorTituloController::class, 'listado'])->name("jugador_titulos.listado");
+    Route::resource("jugador_titulos", JugadorTituloController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // FICHAJES
+    Route::get("/fichajes/paginado", [FichajeController::class, 'paginado'])->name("fichajes.paginado");
+    Route::get("/fichajes/listado", [FichajeController::class, 'listado'])->name("fichajes.listado");
+    Route::resource("fichajes", FichajeController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 });

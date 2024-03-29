@@ -7,7 +7,7 @@ const breadbrums = [
         name_url: "inicio",
     },
     {
-        title: "Títulos de Equipos",
+        title: "Fichajes",
         disabled: false,
         url: "",
         name_url: "",
@@ -18,7 +18,7 @@ const breadbrums = [
 import BreadBrums from "@/Components/BreadBrums.vue";
 import { useApp } from "@/composables/useApp";
 import { Head } from "@inertiajs/vue3";
-import { useEquipoTitulos } from "@/composables/equipo_titulos/useEquipoTitulos";
+import { useFichajes } from "@/composables/fichajes/useFichajes";
 import { ref, onMounted } from "vue";
 import { useMenu } from "@/composables/useMenu";
 import Formulario from "./Formulario.vue";
@@ -31,22 +31,18 @@ onMounted(() => {
     }, 300);
 });
 
-const {
-    getEquipoTitulosApi,
-    setEquipoTitulo,
-    limpiarEquipoTitulo,
-    deleteEquipoTitulo,
-} = useEquipoTitulos();
-const responseEquipoTitulos = ref([]);
-const listEquipoTitulos = ref([]);
+const { getFichajesApi, setFichaje, limpiarFichaje, deleteFichaje } =
+    useFichajes();
+const responseFichajes = ref([]);
+const listFichajes = ref([]);
 const itemsPerPage = ref(5);
 const headers = ref([
     { title: "Nombre del Equipo", align: "start", sortable: false },
-    { title: "Nombre del Título", align: "start", sortable: false },
-    { title: "Año", align: "start", sortable: false },
-    { title: "Fecha", align: "start", sortable: false },
+    { title: "Nombre del Jugador", align: "start", sortable: false },
+    { title: "Número de Polera", align: "start", sortable: false },
+    { title: "Fecha de Fichaje", align: "start", sortable: false },
+    { title: "Contrato Hasta", align: "start", sortable: false },
     { title: "Descripción", align: "start", sortable: false },
-    { title: "Tipo de Título", align: "start", sortable: false },
     { title: "Fecha de Registro", align: "start", sortable: false },
     { title: "Acción", align: "end", sortable: false },
 ]);
@@ -74,19 +70,19 @@ const loadItems = async ({ page, itemsPerPage, sortBy }) => {
 
     clearInterval(setTimeOutLoadData);
     setTimeOutLoadData = setTimeout(async () => {
-        responseEquipoTitulos.value = await getEquipoTitulosApi(options.value);
-        listEquipoTitulos.value = responseEquipoTitulos.value.data;
-        totalItems.value = parseInt(responseEquipoTitulos.value.total);
+        responseFichajes.value = await getFichajesApi(options.value);
+        listFichajes.value = responseFichajes.value.data;
+        totalItems.value = parseInt(responseFichajes.value.total);
         loading.value = false;
     }, 300);
 };
-const recargaEquipoTitulos = async () => {
+const recargaFichajes = async () => {
     loading.value = true;
-    listEquipoTitulos.value = [];
+    listFichajes.value = [];
     options.value.search = search.value;
-    responseEquipoTitulos.value = await getEquipoTitulosApi(options.value);
-    listEquipoTitulos.value = responseEquipoTitulos.value.data;
-    totalItems.value = parseInt(responseEquipoTitulos.value.total);
+    responseFichajes.value = await getFichajesApi(options.value);
+    listFichajes.value = responseFichajes.value.data;
+    totalItems.value = parseInt(responseFichajes.value.total);
     setTimeout(() => {
         loading.value = false;
         open_dialog.value = false;
@@ -96,20 +92,20 @@ const accion_dialog = ref(0);
 const open_dialog = ref(false);
 
 const agregarRegistro = () => {
-    limpiarEquipoTitulo();
+    limpiarFichaje();
     accion_dialog.value = 0;
     open_dialog.value = true;
 };
-const editarEquipoTitulo = (item) => {
-    setEquipoTitulo(item);
+const editarFichaje = (item) => {
+    setFichaje(item);
     accion_dialog.value = 1;
     open_dialog.value = true;
 };
 
-const eliminarEquipoTitulo = (item) => {
+const eliminarFichaje = (item) => {
     Swal.fire({
         title: "¿Quierés eliminar este registro?",
-        html: `<strong>${item.titulo}</strong> - <small>(${item.equipo.nombre})</small>`,
+        html: `<strong>${item.jugador.full_name}</strong> - <small>(${item.equipo.nombre})</small>`,
         showCancelButton: true,
         confirmButtonColor: "#B61431",
         confirmButtonText: "Si, eliminar",
@@ -118,16 +114,16 @@ const eliminarEquipoTitulo = (item) => {
     }).then(async (result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            let respuesta = await deleteEquipoTitulo(item.id);
+            let respuesta = await deleteFichaje(item.id);
             if (respuesta && respuesta.sw) {
-                recargaEquipoTitulos();
+                recargaFichajes();
             }
         }
     });
 };
 </script>
 <template>
-    <Head title="Títulos de Equipos"></Head>
+    <Head title="Fichajes"></Head>
     <v-container>
         <BreadBrums :breadbrums="breadbrums"></BreadBrums>
         <v-row class="mt-0">
@@ -146,9 +142,7 @@ const eliminarEquipoTitulo = (item) => {
                 <v-card flat>
                     <v-card-title>
                         <v-row class="bg-primary d-flex align-center pa-3">
-                            <v-col cols="12" sm="6" md="4">
-                                Títulos de Equipos
-                            </v-col>
+                            <v-col cols="12" sm="6" md="4"> Fichajes </v-col>
                             <v-col cols="12" sm="6" md="4" offset-md="4">
                                 <v-text-field
                                     v-model="search"
@@ -167,7 +161,7 @@ const eliminarEquipoTitulo = (item) => {
                             :headers="!mobile ? headers : []"
                             :class="[mobile ? 'mobile' : '']"
                             :items-length="totalItems"
-                            :items="listEquipoTitulos"
+                            :items="listFichajes"
                             :loading="loading"
                             :search="search"
                             @update:options="loadItems"
@@ -190,27 +184,27 @@ const eliminarEquipoTitulo = (item) => {
                             <template v-slot:item="{ item }">
                                 <tr v-if="!mobile">
                                     <td>{{ item.equipo.nombre }}</td>
-                                    <td class="text-xs-right">
-                                        {{ item.titulo }}
+                                    <td>{{ item.jugador.full_name }}</td>
+                                    <td>
+                                        {{ item.nro_polera }}
                                     </td>
-                                    <td>{{ item.anio }}</td>
-                                    <td>{{ item.fecha_t }}</td>
+                                    <td>{{ item.fecha_fichaje_t }}</td>
+                                    <td>{{ item.contrato_hasta_t }}</td>
                                     <td>{{ item.descripcion }}</td>
-                                    <td>{{ item.tipo }}</td>
                                     <td>{{ item.fecha_registro_t }}</td>
                                     <td class="text-right">
                                         <v-btn
                                             color="yellow"
                                             size="small"
                                             class="pa-1 ma-1"
-                                            @click="editarEquipoTitulo(item)"
+                                            @click="editarFichaje(item)"
                                             icon="mdi-pencil"
                                         ></v-btn>
                                         <v-btn
                                             color="error"
                                             size="small"
                                             class="pa-1 ma-1"
-                                            @click="eliminarEquipoTitulo(item)"
+                                            @click="eliminarFichaje(item)"
                                             icon="mdi-trash-can"
                                         ></v-btn>
                                     </td>
@@ -226,33 +220,33 @@ const eliminarEquipoTitulo = (item) => {
                                             </li>
                                             <li
                                                 class="flex-item"
-                                                data-label="Nombre del Título"
+                                                data-label="Nombre del Jugador"
                                             >
-                                                {{ item.titulo }}
+                                                {{ item.jugador.full_name }}
                                             </li>
                                             <li
                                                 class="flex-item"
-                                                data-label="Año"
+                                                data-label="Número de Polera"
                                             >
-                                                {{ item.anio }}
+                                                {{ item.nro_polera }}
                                             </li>
                                             <li
                                                 class="flex-item"
-                                                data-label="Fecha"
+                                                data-label="Fecha de Fichaje"
                                             >
-                                                {{ item.fecha_t }}
+                                                {{ item.fecha_fichaje_t}}
+                                            </li>
+                                            <li
+                                                class="flex-item"
+                                                data-label="Contrato hasta"
+                                            >
+                                                {{ item.contrato_hasta_t }}
                                             </li>
                                             <li
                                                 class="flex-item"
                                                 data-label="Descripción"
                                             >
                                                 {{ item.descripcion }}
-                                            </li>
-                                            <li
-                                                class="flex-item"
-                                                data-label="Tipo de Título"
-                                            >
-                                                {{ item.tipo }}
                                             </li>
                                             <li
                                                 class="flex-item"
@@ -270,9 +264,7 @@ const eliminarEquipoTitulo = (item) => {
                                                     color="yellow"
                                                     size="small"
                                                     class="pa-1 ma-1"
-                                                    @click="
-                                                        editarEquipoTitulo(item)
-                                                    "
+                                                    @click="editarFichaje(item)"
                                                     icon="mdi-pencil"
                                                 ></v-btn>
                                                 <v-btn
@@ -280,9 +272,7 @@ const eliminarEquipoTitulo = (item) => {
                                                     size="small"
                                                     class="pa-1 ma-1"
                                                     @click="
-                                                        eliminarEquipoTitulo(
-                                                            item
-                                                        )
+                                                        eliminarFichaje(item)
                                                     "
                                                     icon="mdi-trash-can"
                                                 ></v-btn>
@@ -299,7 +289,7 @@ const eliminarEquipoTitulo = (item) => {
         <Formulario
             :open_dialog="open_dialog"
             :accion_dialog="accion_dialog"
-            @envio-formulario="recargaEquipoTitulos"
+            @envio-formulario="recargaFichajes"
             @cerrar-dialog="open_dialog = false"
         ></Formulario>
     </v-container>

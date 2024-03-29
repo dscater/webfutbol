@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-03-2024 a las 22:30:30
+-- Tiempo de generación: 29-03-2024 a las 17:34:37
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -101,7 +101,8 @@ CREATE TABLE `equipo_titulos` (
 --
 
 INSERT INTO `equipo_titulos` (`id`, `equipo_id`, `titulo`, `anio`, `fecha`, `descripcion`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 'TITULO #1 (E1)', '2020', '2020-01-21', 'DESC. TITULO #1', 'NACIONAL', '2024-03-28', '2024-03-28 22:29:49', '2024-03-28 22:29:49');
+(1, 1, 'TITULO #1 (E1)', '2020', '2020-01-21', 'DESC. TITULO #1', 'NACIONAL', '2024-03-28', '2024-03-28 22:29:49', '2024-03-28 22:29:49'),
+(2, 2, 'TITULO #2', '2020', '2020-01-01', 'DESC', 'NACIONAL', '2024-03-29', '2024-03-29 17:13:38', '2024-03-29 17:13:38');
 
 -- --------------------------------------------------------
 
@@ -121,6 +122,13 @@ CREATE TABLE `fichajes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `fichajes`
+--
+
+INSERT INTO `fichajes` (`id`, `equipo_id`, `jugador_id`, `nro_polera`, `fecha_fichaje`, `contrato_hasta`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2024-02-01', '2024-12-31', 'DESC. FICHAJE #1', '2024-03-29', '2024-03-29 17:25:14', '2024-03-29 17:25:14');
 
 -- --------------------------------------------------------
 
@@ -166,7 +174,31 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (17, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:44<br/>', 'id: 1<br/>equipo_id: 2<br/>titulo: TITULO #1 (E1)S<br/>anio: 2013S<br/>fecha: 2013-03-04<br/>descripcion: DESCRIPCION TITULOS<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:55<br/>', 'TÍTULO DE EQUIPOS', '2024-03-28', '18:27:55', '2024-03-28 22:27:55', '2024-03-28 22:27:55'),
 (18, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 2<br/>titulo: TITULO #1 (E1)S<br/>anio: 2013S<br/>fecha: 2013-03-04<br/>descripcion: DESCRIPCION TITULOS<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:27:55<br/>', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:28:04<br/>', 'TÍTULO DE EQUIPOS', '2024-03-28', '18:28:04', '2024-03-28 22:28:04', '2024-03-28 22:28:04'),
 (19, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2013<br/>fecha: 2013-03-03<br/>descripcion: DESCRIPCION TITULO<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:27:44<br/>updated_at: 2024-03-28 18:28:04<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:28:44', '2024-03-28 22:28:44', '2024-03-28 22:28:44'),
-(20, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2020<br/>fecha: 2020-01-21<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:29:49<br/>updated_at: 2024-03-28 18:29:49<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:29:49', '2024-03-28 22:29:49', '2024-03-28 22:29:49');
+(20, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>titulo: TITULO #1 (E1)<br/>anio: 2020<br/>fecha: 2020-01-21<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-28<br/>created_at: 2024-03-28 18:29:49<br/>updated_at: 2024-03-28 18:29:49<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-28', '18:29:49', '2024-03-28 22:29:49', '2024-03-28 22:29:49'),
+(21, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN JUGADOR', 'id: 1<br/>nombre: CARLOS<br/>paterno: CORTEZ<br/>materno: <br/>nacionalidad: BOLIVIANO<br/>ci: 322323<br/>fecha_nac: 2001-01-01<br/>posicion: PORTERO<br/>altura: 1.98 M<br/>peso: 97 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_1.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 90.5<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:10:20<br/>', NULL, 'JUGADORES', '2024-03-29', '12:10:20', '2024-03-29 16:10:20', '2024-03-29 16:10:20'),
+(22, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN JUGADOR', 'id: 2<br/>nombre: CARLOS<br/>paterno: CORTEZ<br/>materno: <br/>nacionalidad: BOLIVIANO<br/>ci: 322323<br/>fecha_nac: 2001-01-01<br/>posicion: PORTERO<br/>altura: 1.98 M<br/>peso: 97 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_2.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 90.5<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:10:20<br/>', NULL, 'JUGADORES', '2024-03-29', '12:10:20', '2024-03-29 16:10:20', '2024-03-29 16:10:20'),
+(23, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN JUGADOR', 'id: 2<br/>nombre: CARLOS<br/>paterno: CORTEZ<br/>materno: <br/>nacionalidad: BOLIVIANO<br/>ci: 322323<br/>fecha_nac: 2001-01-01<br/>posicion: PORTERO<br/>altura: 1.98 M<br/>peso: 97 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_2.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:10:20<br/>', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_2.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:23<br/>', 'JUGADORES', '2024-03-29', '12:32:23', '2024-03-29 16:32:23', '2024-03-29 16:32:23'),
+(24, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN JUGADOR', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_2.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:23<br/>', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', 'JUGADORES', '2024-03-29', '12:32:30', '2024-03-29 16:32:30', '2024-03-29 16:32:30'),
+(25, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN JUGADOR', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', 'JUGADORES', '2024-03-29', '12:32:34', '2024-03-29 16:32:34', '2024-03-29 16:32:34'),
+(26, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN JUGADOR', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', 'JUGADORES', '2024-03-29', '12:32:37', '2024-03-29 16:32:37', '2024-03-29 16:32:37'),
+(27, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN JUGADOR', 'id: 1<br/>nombre: CARLOS<br/>paterno: CORTEZ<br/>materno: <br/>nacionalidad: BOLIVIANO<br/>ci: 322323<br/>fecha_nac: 2001-01-01<br/>posicion: PORTERO<br/>altura: 1.98 M<br/>peso: 97 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_1.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:10:20<br/>', 'id: 1<br/>nombre: CARLOS<br/>paterno: CORTEZ<br/>materno: <br/>nacionalidad: BOLIVIANO<br/>ci: 322323<br/>fecha_nac: 2001-01-01<br/>posicion: PORTERO<br/>altura: 1.98 M<br/>peso: 97 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711728620_1.png<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 0<br/>nro_asistencias: 0<br/>nro_gol_penalti: 0<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 0<br/>nro_sustitucion: 0<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:58<br/>', 'JUGADORES', '2024-03-29', '12:32:58', '2024-03-29 16:32:58', '2024-03-29 16:32:58'),
+(28, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN JUGADOR', 'id: 2<br/>nombre: JUAN<br/>paterno: MARTINEZ<br/>materno: MARTINEZ<br/>nacionalidad: BOLIVIANO<br/>ci: 343434<br/>fecha_nac: 2001-01-01<br/>posicion: DELANTERO<br/>altura: 1.8 M<br/>peso: 85 KG<br/>pie: DERECHO<br/>valoracion_actual: 100000<br/>correo: CARLOS@GMAIL.COM<br/>fono: 7777777<br/>dir: LOS OLIVOS<br/>foto: 1711729950_2.jpeg<br/>nro_convocado: 2<br/>nro_alineaciones: 2<br/>minutos_jugados: 300<br/>nro_goles: 10<br/>nro_asistencias: 5<br/>nro_gol_penalti: 3<br/>nro_penalti_cometido: 0<br/>nro_tiro_palo: 1<br/>nro_sustitucion: 2<br/>nro_tarjeta_amarilla: 2<br/>nro_tarjeta_roja: 0<br/>nro_lesiones: 0<br/>puntuacion_valorada: 91<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:10:20<br/>updated_at: 2024-03-29 12:32:30<br/>', NULL, 'JUGADORES', '2024-03-29', '12:33:29', '2024-03-29 16:33:29', '2024-03-29 16:33:29'),
+(29, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:48:21<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-29', '12:48:21', '2024-03-29 16:48:21', '2024-03-29 16:48:21'),
+(30, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:48:21<br/>', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1S<br/>anio: 2013S<br/>fecha: 2013-02-01<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:18<br/>', 'TÍTULO DE EQUIPOS', '2024-03-29', '12:49:18', '2024-03-29 16:49:18', '2024-03-29 16:49:18'),
+(31, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1S<br/>anio: 2013S<br/>fecha: 2013-02-01<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:18<br/>', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1S<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:26<br/>', 'TÍTULO DE EQUIPOS', '2024-03-29', '12:49:26', '2024-03-29 16:49:26', '2024-03-29 16:49:26'),
+(32, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1S<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:26<br/>', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:31<br/>', 'TÍTULO DE EQUIPOS', '2024-03-29', '12:49:31', '2024-03-29 16:49:31', '2024-03-29 16:49:31'),
+(33, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: INTERNACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:31<br/>', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:34<br/>', 'TÍTULO DE EQUIPOS', '2024-03-29', '12:49:34', '2024-03-29 16:49:34', '2024-03-29 16:49:34'),
+(34, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-02-02<br/>descripcion: DESC. TITULO #1<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:48:21<br/>updated_at: 2024-03-29 12:49:34<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-29', '12:50:02', '2024-03-29 16:50:02', '2024-03-29 16:50:02'),
+(35, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 1<br/>jugador_id: 1<br/>titulo: TITULO #1<br/>anio: 2013<br/>fecha: 2013-01-01<br/>descripcion: <br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 12:50:19<br/>updated_at: 2024-03-29 12:50:19<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-29', '12:50:19', '2024-03-29 16:50:19', '2024-03-29 16:50:19'),
+(36, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN TÍTULO DE EQUIPO', 'id: 2<br/>equipo_id: 2<br/>titulo: TITULO #2<br/>anio: 2020<br/>fecha: 2020-01-01<br/>descripcion: DESC<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:13:38<br/>updated_at: 2024-03-29 13:13:38<br/>', NULL, 'TÍTULO DE EQUIPOS', '2024-03-29', '13:13:38', '2024-03-29 17:13:38', '2024-03-29 17:13:38'),
+(37, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN TÍTULO DE EQUIPO', 'id: 2<br/>equipo_id: 2<br/>titulo: TITULO #2<br/>anio: 2020<br/>fecha: 2020-01-01<br/>descripcion: DESC<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:13:38<br/>updated_at: 2024-03-29 13:13:38<br/>', 'id: 2<br/>equipo_id: 2<br/>titulo: TITULO #2<br/>anio: 2020<br/>fecha: 2020-01-01<br/>descripcion: DESC<br/>tipo: NACIONAL<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:13:38<br/>updated_at: 2024-03-29 13:13:38<br/>', 'TÍTULO DE EQUIPOS', '2024-03-29', '13:13:41', '2024-03-29 17:13:41', '2024-03-29 17:13:41'),
+(38, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-01<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:20:12<br/>', NULL, 'FICHAJES', '2024-03-29', '13:20:12', '2024-03-29 17:20:12', '2024-03-29 17:20:12'),
+(39, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-01<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:20:12<br/>', 'id: 1<br/>equipo_id: 2<br/>jugador_id: 1<br/>nro_polera: 2<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 0001-03-01<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:23:21<br/>', 'FICHAJES', '2024-03-29', '13:23:21', '2024-03-29 17:23:21', '2024-03-29 17:23:21'),
+(40, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 2<br/>jugador_id: 1<br/>nro_polera: 2<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 0001-03-01<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:23:21<br/>', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-01<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:23:59<br/>', 'FICHAJES', '2024-03-29', '13:23:59', '2024-03-29 17:23:59', '2024-03-29 17:23:59'),
+(41, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-01<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:23:59<br/>', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:08<br/>', 'FICHAJES', '2024-03-29', '13:24:08', '2024-03-29 17:24:08', '2024-03-29 17:24:08'),
+(42, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1S<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:08<br/>', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:20<br/>', 'FICHAJES', '2024-03-29', '13:24:20', '2024-03-29 17:24:20', '2024-03-29 17:24:20'),
+(43, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-01-02<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:20:12<br/>updated_at: 2024-03-29 13:24:20<br/>', NULL, 'FICHAJES', '2024-03-29', '13:24:55', '2024-03-29 17:24:55', '2024-03-29 17:24:55'),
+(44, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UN FICHAJE', 'id: 1<br/>equipo_id: 1<br/>jugador_id: 1<br/>nro_polera: 1<br/>fecha_fichaje: 2024-02-01<br/>contrato_hasta: 2024-12-31<br/>descripcion: DESC. FICHAJE #1<br/>fecha_registro: 2024-03-29<br/>created_at: 2024-03-29 13:25:14<br/>updated_at: 2024-03-29 13:25:14<br/>', NULL, 'FICHAJES', '2024-03-29', '13:25:14', '2024-03-29 17:25:14', '2024-03-29 17:25:14');
 
 -- --------------------------------------------------------
 
@@ -220,6 +252,7 @@ CREATE TABLE `jugadors` (
   `correo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fono` varchar(155) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `dir` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nro_convocado` int NOT NULL,
   `nro_alineaciones` int NOT NULL,
   `minutos_jugados` int NOT NULL,
@@ -237,6 +270,13 @@ CREATE TABLE `jugadors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `jugadors`
+--
+
+INSERT INTO `jugadors` (`id`, `nombre`, `paterno`, `materno`, `nacionalidad`, `ci`, `fecha_nac`, `posicion`, `altura`, `peso`, `pie`, `valoracion_actual`, `correo`, `fono`, `dir`, `foto`, `nro_convocado`, `nro_alineaciones`, `minutos_jugados`, `nro_goles`, `nro_asistencias`, `nro_gol_penalti`, `nro_penalti_cometido`, `nro_tiro_palo`, `nro_sustitucion`, `nro_tarjeta_amarilla`, `nro_tarjeta_roja`, `nro_lesiones`, `puntuacion_valorada`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'CARLOS', 'CORTEZ', '', 'BOLIVIANO', '322323', '2001-01-01', 'PORTERO', '1.98 M', '97 KG', 'DERECHO', '100000', 'CARLOS@GMAIL.COM', '7777777', 'LOS OLIVOS', '1711728620_1.png', 2, 2, 300, 0, 0, 0, 0, 0, 0, 2, 0, 0, 91, '2024-03-29', '2024-03-29 16:10:20', '2024-03-29 16:32:58');
 
 -- --------------------------------------------------------
 
@@ -256,6 +296,13 @@ CREATE TABLE `jugador_titulos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `jugador_titulos`
+--
+
+INSERT INTO `jugador_titulos` (`id`, `jugador_id`, `titulo`, `anio`, `fecha`, `descripcion`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 'TITULO #1', '2013', '2013-01-01', '', 'NACIONAL', '2024-03-29', '2024-03-29 16:50:19', '2024-03-29 16:50:19');
 
 -- --------------------------------------------------------
 
@@ -508,19 +555,19 @@ ALTER TABLE `equipos`
 -- AUTO_INCREMENT de la tabla `equipo_titulos`
 --
 ALTER TABLE `equipo_titulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `fichajes`
 --
 ALTER TABLE `fichajes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `institucions`
@@ -532,13 +579,13 @@ ALTER TABLE `institucions`
 -- AUTO_INCREMENT de la tabla `jugadors`
 --
 ALTER TABLE `jugadors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador_titulos`
 --
 ALTER TABLE `jugador_titulos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
