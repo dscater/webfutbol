@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlineacionEquipoController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\EquipoTituloController;
 use App\Http\Controllers\FichajeController;
@@ -111,6 +112,7 @@ Route::middleware('auth')->group(function () {
 
     // FICHAJES
     Route::get("/fichajes/paginado", [FichajeController::class, 'paginado'])->name("fichajes.paginado");
+    Route::get("/fichajes/byEquipo", [FichajeController::class, 'byEquipo'])->name("fichajes.byEquipo");
     Route::get("/fichajes/listado", [FichajeController::class, 'listado'])->name("fichajes.listado");
     Route::resource("fichajes", FichajeController::class)->only(
         ["index", "store", "update", "show", "destroy"]
@@ -121,6 +123,13 @@ Route::middleware('auth')->group(function () {
     Route::get("/tabla_posicions/listado", [TablaPosicionController::class, 'listado'])->name("tabla_posicions.listado");
     Route::resource("tabla_posicions", TablaPosicionController::class)->only(
         ["index", "store", "update", "show", "destroy"]
+    );
+
+    // ALINEACION DE EQUIPOS
+    Route::get("/alineacion_equipos/paginado", [AlineacionEquipoController::class, 'paginado'])->name("alineacion_equipos.paginado");
+    Route::get("/alineacion_equipos/listado", [AlineacionEquipoController::class, 'listado'])->name("alineacion_equipos.listado");
+    Route::resource("alineacion_equipos", AlineacionEquipoController::class)->only(
+        ["index", "create", "edit", "store", "update", "show", "destroy"]
     );
 });
 

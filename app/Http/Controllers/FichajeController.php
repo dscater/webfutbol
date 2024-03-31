@@ -41,6 +41,16 @@ class FichajeController extends Controller
         ]);
     }
 
+    public function byEquipo(Request $request)
+    {
+        $fichajes = Fichaje::with(["jugador", "equipo"])->select("fichajes.*")
+            ->where("equipo_id", $request->id)
+            ->get();
+        return response()->JSON([
+            "fichajes" => $fichajes
+        ]);
+    }
+
     public function paginado(Request $request)
     {
         $search = $request->search;
@@ -50,7 +60,7 @@ class FichajeController extends Controller
 
         if (trim($search) != "") {
             $fichajes->where("equipos.nombre", "LIKE", "%$search%");
-            $fichajes->orWhereRaw("CONCAT(jugadors.nombre,' ', jugadors.paterno,' ', jugadors.materno) LIKE ?", ["%$search%"]);
+            $fichajes->orWhereRaw("CONCAT(equipos.nombre,' ',jugadors.nombre,' ', jugadors.paterno,' ', jugadors.materno) LIKE ?", ["%$search%"]);
         }
 
         $fichajes = $fichajes->paginate($request->itemsPerPage);

@@ -169,7 +169,11 @@ const scrollActive = () => {
             </v-list-item>
             <v-list-item
                 :class="[
-                    route_current == 'alineacion_equipos.index' ? 'active' : '',
+                    route_current == 'alineacion_equipos.index' ||
+                    route_current == 'alineacion_equipos.create' ||
+                    route_current == 'alineacion_equipos.edit'
+                        ? 'active'
+                        : '',
                 ]"
                 v-if="oUser.permisos.includes('alineacion_equipos.index')"
                 prepend-icon="mdi-clipboard-list"

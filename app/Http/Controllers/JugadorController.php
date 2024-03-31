@@ -120,6 +120,7 @@ class JugadorController extends Controller
 
     public function store(Request $request)
     {
+        $this->validacion['ci'] = 'required|min:4|numeric|unique:jugadors,ci';
         if ($request->hasFile('foto')) {
             $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png,webp|max:2048';
         }
@@ -164,6 +165,7 @@ class JugadorController extends Controller
 
     public function update(Jugador $jugador, Request $request)
     {
+        $this->validacion['ci'] = 'required|min:4|numeric|unique:jugadors,ci,' . $jugador->id;
         if ($request->hasFile('foto')) {
             $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png,webp|max:2048';
         }

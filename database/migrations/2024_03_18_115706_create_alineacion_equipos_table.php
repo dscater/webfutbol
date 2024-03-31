@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("equipo_id");
             $table->string("nombre", 255);
+            $table->date("fecha_registro")->nullable();
             $table->timestamps();
 
             $table->foreign("equipo_id")->on("equipos")->references("id");

@@ -38,6 +38,30 @@ export const useFichajes = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
+    const getFichajesByEquipo = async (data) => {
+        try {
+            const response = await axios.get(route("fichajes.byEquipo"), {
+                headers: { Accept: "application/json" },
+                params: data,
+            });
+            return response.data.fichajes;
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `${
+                    flash.error
+                        ? flash.error
+                        : err.response?.data
+                        ? err.response?.data?.message
+                        : "Hay errores en el formulario"
+                }`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+            throw err; // Puedes manejar el error según tus necesidades
+        }
+    };
 
     const getFichajesApi = async (data) => {
         try {
@@ -157,6 +181,7 @@ export const useFichajes = () => {
     return {
         oFichaje,
         getFichajes,
+        getFichajesByEquipo,
         getFichajesApi,
         saveFichaje,
         deleteFichaje,

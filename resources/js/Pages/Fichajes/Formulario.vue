@@ -30,6 +30,7 @@ watch(
     (newValue) => {
         dialog.value = newValue;
         if (dialog.value) {
+            cargarListas();
             form = useForm(oFichaje.value);
         }
     }
@@ -100,13 +101,11 @@ const cerrarDialog = () => {
 const cargarListas = async () => {
     listEquipos.value = await getEquipos();
     if (form.id != "" && form.id != 0) {
-        console.log("AA");
         listJugadors.value = await getJugadors({
             sin_fichaje: true,
             id: form.jugador_id,
         });
     } else {
-        console.log("BBB");
         listJugadors.value = await getJugadors({
             sin_fichaje: true,
         });

@@ -205,7 +205,7 @@ const eliminarTablaPosicion = (item) => {
                                     <td>{{ item.p }}</td>
                                     <td>{{ item.gf }}</td>
                                     <td>{{ item.gc }}</td>
-                                    <td>{{ item.gd }}</td>
+                                    <td>{{ item.dg }}</td>
                                     <td>{{ item.pts }}</td>
                                     <td>{{ item.fecha_registro_t }}</td>
                                     <td class="text-right">
