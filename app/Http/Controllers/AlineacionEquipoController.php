@@ -49,7 +49,7 @@ class AlineacionEquipoController extends Controller
     public function paginado(Request $request)
     {
         $search = $request->search;
-        $alineacion_equipos = AlineacionEquipo::with(["equipo"])->select("alineacion_equipos.*");
+        $alineacion_equipos = AlineacionEquipo::with(["equipo", "alineacion_detalles.jugador", "alineacion_detalles.fichaje"])->select("alineacion_equipos.*");
         if (trim($search) != "") {
             $alineacion_equipos->where("equipos.nombre", "LIKE", "%$search%");
             $alineacion_equipos->orWhereRaw("CONCAT(jugadors.nombre,' ', jugadors.paterno,' ', jugadors.materno) LIKE ?", ["%$search%"]);

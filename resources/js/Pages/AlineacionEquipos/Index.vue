@@ -227,20 +227,105 @@ const eliminarAlineacionEquipo = (item) => {
                                         >
                                             <v-row>
                                                 <v-col
-                                                    cols="3"
+                                                    cols="12"
+                                                    md="6"
                                                     class="text-center"
                                                 >
-                                                    <v-row>
-                                                        <v-col
-                                                            cols="12"
-                                                            class="pb-0 text-caption font-weight-black"
-                                                            >Fecha de
-                                                            Registro</v-col
+                                                    <v-list class="pt-0">
+                                                        <template
+                                                            v-for="(
+                                                                item, i
+                                                            ) in item.alineacion_detalles"
                                                         >
-                                                        <v-col cols="12">{{
-                                                            item.fecha_registro_t
-                                                        }}</v-col>
-                                                    </v-row>
+                                                            <v-list-item
+                                                                :value="item"
+                                                                class="pl-0"
+                                                            >
+                                                                <template
+                                                                    v-slot:prepend
+                                                                >
+                                                                    <div>
+                                                                        <span
+                                                                            class="text-body-1 ml-3 mr-2"
+                                                                            >{{
+                                                                                i +
+                                                                                1
+                                                                            }})</span
+                                                                        >
+                                                                        <v-avatar
+                                                                            color="primary"
+                                                                            class="mr-2"
+                                                                        >
+                                                                            <v-img
+                                                                                :src="
+                                                                                    item
+                                                                                        ?.jugador
+                                                                                        .url_foto
+                                                                                "
+                                                                                alt="Foto"
+                                                                                cover
+                                                                                v-if="
+                                                                                    item
+                                                                                        ?.jugador
+                                                                                        .url_foto
+                                                                                "
+                                                                            ></v-img>
+                                                                            <span
+                                                                                v-else
+                                                                                >{{
+                                                                                    item
+                                                                                        ?.jugador
+                                                                                        .iniciales_nombre
+                                                                                }}</span
+                                                                            >
+                                                                        </v-avatar>
+                                                                    </div>
+                                                                </template>
+                                                                <template
+                                                                    v-slot:title
+                                                                >
+                                                                    <v-list-item-title
+                                                                        v-text="
+                                                                            item
+                                                                                ?.jugador
+                                                                                .full_name
+                                                                        "
+                                                                    >
+                                                                    </v-list-item-title>
+                                                                </template>
+                                                                <template
+                                                                    v-slot:subtitle
+                                                                >
+                                                                    <div>
+                                                                        {{
+                                                                            item
+                                                                                .jugador
+                                                                                .posicion
+                                                                        }}
+                                                                        &mdash;
+                                                                        <v-chip
+                                                                            color="primary"
+                                                                            variant="flat"
+                                                                            >{{
+                                                                                item
+                                                                                    .fichaje
+                                                                                    .nro_polera
+                                                                            }}</v-chip
+                                                                        >
+                                                                    </div>
+                                                                </template>
+                                                            </v-list-item>
+                                                            <!-- <v-divider
+                                                                v-if="
+                                                                    i <
+                                                                    item
+                                                                        .alineacion_detalles
+                                                                        .length -
+                                                                        1
+                                                                "
+                                                            ></v-divider> -->
+                                                        </template>
+                                                    </v-list>
                                                 </v-col>
                                             </v-row>
                                         </td>

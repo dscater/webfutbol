@@ -66,6 +66,8 @@ class PrediccionPartidoController extends Controller
     {
         $alineacion_local_id = $request->alineacion_local_id;
         $alineacion_visitante_id = $request->alineacion_visitante_id;
+        $alineacion_local = AlineacionEquipo::find($alineacion_local_id);
+        $alineacion_visitante = AlineacionEquipo::find($alineacion_visitante_id);
 
         $suma_puntuacion_local = AlineacionDetalle::join("alineacion_equipos", "alineacion_equipos.id", "=", "alineacion_detalles.alineacion_equipo_id")
             ->join("jugadors", "jugadors.id", "=", "alineacion_detalles.jugador_id")
@@ -90,6 +92,10 @@ class PrediccionPartidoController extends Controller
         $suma_puntuacion_local = $suma_puntuacion_local / 11;
         $suma_puntuacion_visitante = $suma_puntuacion_visitante / 11;
 
+        $asvm = new AlgoritmoSVMController();
+        $asvm->aplicarSVM($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local->id, $alineacion_visitante->id);
+
+        // aplicar los datos obtenidos para filtrar al ganador
         sleep(2);
         // Log::debug($suma_puntuacion_local);
         // Log::debug($suma_puntuacion_visitante);
@@ -98,6 +104,7 @@ class PrediccionPartidoController extends Controller
         } elseif ($suma_puntuacion_local < $suma_puntuacion_visitante) {
             $ganador = $alineacion_visitante->equipo;
         }
+
 
         return response()->JSON([
             "ganador" => $ganador
@@ -189,6 +196,19 @@ class PrediccionPartidoController extends Controller
             }
             if (!$request->p_ganador_id) {
                 $prediccion_partido["p_ganador_id"] = null;
+            }
+            $prediccion_partido->save();
+
+            if ($request->g_local && $request->g_visitante) {
+                $g_local = (int)$request->g_local;
+                $g_visitante = (int)$request->g_visitante;
+
+                $prediccion_partido->ganador_id = null;
+                if ($g_local > $g_visitante) {
+                    $prediccion_partido->ganador_id = $prediccion_partido->local_id;
+                } elseif ($g_local < $g_visitante) {
+                    $prediccion_partido->ganador_id = $prediccion_partido->visitante_id;
+                }
             }
             $prediccion_partido->save();
 

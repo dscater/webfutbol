@@ -4,11 +4,13 @@ use App\Http\Controllers\AlineacionEquipoController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\EquipoTituloController;
 use App\Http\Controllers\FichajeController;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\JugadorTituloController;
 use App\Http\Controllers\PrediccionPartidoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\TablaPosicionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
@@ -52,9 +54,7 @@ Route::middleware('auth')->group(function () {
     })->name("vuetify");
 
     // INICIO
-    Route::get('/inicio', function () {
-        return Inertia::render('Home');
-    })->name('inicio');
+    Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
 
     // INSTITUCION
     Route::resource("institucions", InstitucionController::class)->only(
@@ -142,6 +142,23 @@ Route::middleware('auth')->group(function () {
     Route::resource("prediccion_partidos", PrediccionPartidoController::class)->only(
         ["index", "create", "edit", "store", "update", "show", "destroy"]
     );
+
+    // REPORTES
+    Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
+    Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
+
+    Route::get('reportes/equipos', [ReporteController::class, 'equipos'])->name("reportes.equipos");
+    Route::get('reportes/r_equipos', [ReporteController::class, 'r_equipos'])->name("reportes.r_equipos");
+
+    Route::get('reportes/jugadors', [ReporteController::class, 'jugadors'])->name("reportes.jugadors");
+    Route::get('reportes/r_jugadors', [ReporteController::class, 'r_jugadors'])->name("reportes.r_jugadors");
+
+    Route::get('reportes/equipo_jugadors', [ReporteController::class, 'equipo_jugadors'])->name("reportes.equipo_jugadors");
+    Route::get('reportes/r_equipo_jugadors', [ReporteController::class, 'r_equipo_jugadors'])->name("reportes.r_equipo_jugadors");
+
+    Route::get('reportes/tabla_posicions', [ReporteController::class, 'tabla_posicions'])->name("reportes.tabla_posicions");
+    Route::get('reportes/r_tabla_posicions', [ReporteController::class, 'r_tabla_posicions'])->name("reportes.r_tabla_posicions");
+    Route::get('reportes/g_tabla_posicions', [ReporteController::class, 'g_tabla_posicions'])->name("reportes.g_tabla_posicions");
 });
 
 require __DIR__ . '/auth.php';

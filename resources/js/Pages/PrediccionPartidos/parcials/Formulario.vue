@@ -992,6 +992,7 @@ onMounted(() => {
                                 </v-col>
                             </v-row>
                             <v-row v-if="muestra_resultado">
+                                <v-col cols="12" class="pb-0"><h3 class="w-100 text-center">Resultado de la Predicción</h3></v-col>
                                 <v-col cols="12">
                                     <v-alert class="bg-green-darken-3">
                                         <template v-slot:title>

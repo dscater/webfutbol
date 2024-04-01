@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-04-2024 a las 00:34:10
+-- Tiempo de generación: 01-04-2024 a las 16:49:15
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -349,7 +349,17 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (135, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: <br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:30:29<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:08<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:31:08', '2024-04-01 00:31:08', '2024-04-01 00:31:08'),
 (136, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:08<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:20<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:31:20', '2024-04-01 00:31:20', '2024-04-01 00:31:20'),
 (137, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:20<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:32:34', '2024-04-01 00:32:34', '2024-04-01 00:32:34'),
-(138, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-03-31 20:33:59<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:33:59', '2024-04-01 00:33:59', '2024-04-01 00:33:59');
+(138, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-03-31 20:33:59<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:33:59', '2024-04-01 00:33:59', '2024-04-01 00:33:59'),
+(139, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-03-31 20:33:59<br/>', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 2<br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:09<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-04-01', '10:13:09', '2024-04-01 14:13:09', '2024-04-01 14:13:09'),
+(140, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 2<br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:09<br/>', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 1<br/>g_local: 1<br/>g_visitante: 3<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:21<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-04-01', '10:13:21', '2024-04-01 14:13:21', '2024-04-01 14:13:21'),
+(141, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 1<br/>g_local: 1<br/>g_visitante: 3<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:21<br/>', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 1<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:33<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-04-01', '10:13:33', '2024-04-01 14:13:33', '2024-04-01 14:13:33'),
+(142, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 1<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:33<br/>', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 2<br/>g_local: 2<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:53<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-04-01', '10:13:53', '2024-04-01 14:13:53', '2024-04-01 14:13:53'),
+(143, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA TABLA DE POSICION', 'id: 2<br/>equipo_id: 2<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 7<br/>e: 13<br/>p: 0<br/>gf: 20<br/>gc: 20<br/>dg: 0<br/>pts: 34<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 11:36:43<br/>updated_at: 2024-04-01 11:36:43<br/>', NULL, 'TABLA DE POSICIONES', '2024-04-01', '11:36:43', '2024-04-01 15:36:43', '2024-04-01 15:36:43'),
+(144, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA TABLA DE POSICION', 'id: 2<br/>equipo_id: 2<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 7<br/>e: 13<br/>p: 0<br/>gf: 20<br/>gc: 20<br/>dg: 0<br/>pts: 34<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 11:36:43<br/>updated_at: 2024-04-01 11:36:43<br/>', 'id: 2<br/>equipo_id: 2<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 7<br/>e: 13<br/>p: 0<br/>gf: 20<br/>gc: 20<br/>dg: 0<br/>pts: 35<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 11:36:43<br/>updated_at: 2024-04-01 11:53:05<br/>', 'TABLA DE POSICIONES', '2024-04-01', '11:53:05', '2024-04-01 15:53:05', '2024-04-01 15:53:05'),
+(145, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA TABLA DE POSICION', 'id: 2<br/>equipo_id: 2<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 7<br/>e: 13<br/>p: 0<br/>gf: 20<br/>gc: 20<br/>dg: 0<br/>pts: 35<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 11:36:43<br/>updated_at: 2024-04-01 11:53:05<br/>', 'id: 2<br/>equipo_id: 2<br/>tipo_torneo: APERTURA<br/>temporada: 2023<br/>pj: 20<br/>g: 7<br/>e: 13<br/>p: 0<br/>gf: 20<br/>gc: 20<br/>dg: 0<br/>pts: 34<br/>fecha_registro: 2024-04-01<br/>created_at: 2024-04-01 11:36:43<br/>updated_at: 2024-04-01 11:53:16<br/>', 'TABLA DE POSICIONES', '2024-04-01', '11:53:16', '2024-04-01 15:53:16', '2024-04-01 15:53:16'),
+(146, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 3<br/>usuario: MMAMANI<br/>password: $2y$12$J.21aLLDSTyAyqFR/4Mz2u.GvMke0EVGfzP/XwaInHI1BeUeQSihm<br/>nombre: MARIA<br/>paterno: MAMANI<br/>materno: MAMANI<br/>ci: 3333<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: <br/>fono: 77777<br/>tipo: ANALISTA DE VIDEO<br/>foto: 1711987237_MMAMANI.png<br/>acceso: 1<br/>fecha_registro: 2024-04-01 00:00:00<br/>created_at: 2024-04-01 12:00:37<br/>updated_at: 2024-04-01 12:00:37<br/>', NULL, 'USUARIOS', '2024-04-01', '12:00:37', '2024-04-01 16:00:37', '2024-04-01 16:00:37'),
+(147, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 4<br/>usuario: MGONZALES<br/>password: $2y$12$3Eno6A.rM5f3k1zcgBvxYOFOle6NIOl/tH6CZL/HJGm/seuIk5yMW<br/>nombre: MARCOS<br/>paterno: GONZALES<br/>materno: <br/>ci: 4444<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: <br/>fono: 777777<br/>tipo: ANALISTA DEPORTIVO<br/>foto: <br/>acceso: 1<br/>fecha_registro: 2024-04-01 00:00:00<br/>created_at: 2024-04-01 12:00:53<br/>updated_at: 2024-04-01 12:00:54<br/>', NULL, 'USUARIOS', '2024-04-01', '12:00:54', '2024-04-01 16:00:54', '2024-04-01 16:00:54'),
+(148, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 2<br/>g_local: 2<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:53<br/>', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: 2<br/>g_local: 2<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-04-01 10:13:53<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-04-01', '12:38:48', '2024-04-01 16:38:48', '2024-04-01 16:38:48');
 
 -- --------------------------------------------------------
 
@@ -554,7 +564,7 @@ CREATE TABLE `prediccion_partidos` (
 --
 
 INSERT INTO `prediccion_partidos` (`id`, `local_id`, `alineacion_local_id`, `visitante_id`, `alineacion_visitante_id`, `p_ganador_id`, `ganador_id`, `g_local`, `g_visitante`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, 1, 1, 2, NULL, NULL, NULL, '2024-03-31', '2024-04-01 00:33:59', '2024-04-01 00:33:59');
+(1, 2, 2, 1, 1, 2, 2, 2, 1, '2024-03-31', '2024-04-01 00:33:59', '2024-04-01 14:13:53');
 
 -- --------------------------------------------------------
 
@@ -585,7 +595,8 @@ CREATE TABLE `tabla_posicions` (
 --
 
 INSERT INTO `tabla_posicions` (`id`, `equipo_id`, `tipo_torneo`, `temporada`, `pj`, `g`, `e`, `p`, `gf`, `gc`, `dg`, `pts`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 'APERTURA', 2023, 20, 10, 5, 5, 20, 13, 7, 35, '2024-03-29', '2024-03-29 21:23:17', '2024-03-29 21:23:52');
+(1, 1, 'APERTURA', 2023, 20, 10, 5, 5, 20, 13, 7, 35, '2024-03-29', '2024-03-29 21:23:17', '2024-03-29 21:23:52'),
+(2, 2, 'APERTURA', 2023, 20, 7, 13, 0, 20, 20, 0, 34, '2024-04-01', '2024-04-01 15:36:43', '2024-04-01 15:53:16');
 
 -- --------------------------------------------------------
 
@@ -619,7 +630,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `usuario`, `password`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `dir`, `email`, `fono`, `tipo`, `foto`, `acceso`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 'admin', NULL, NULL, '0', '', '', 'admin@gmail.com', '', 'PERIODISTA', NULL, 1, '2024-01-31', NULL, '2024-02-02 18:13:58'),
-(2, 'JPERES', '$2y$12$bi41OPTk65mY/ifmWga7J.1RERadX6tXsXbKh5mzytmMk2/g29pmu', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', 'JUAN@GMAIL.COM', '7777777', 'PERIODISTA', '1710777252_JPERES.jpg', 1, '2024-03-18', '2024-03-18 15:54:12', '2024-03-18 15:54:54');
+(2, 'JPERES', '$2y$12$bi41OPTk65mY/ifmWga7J.1RERadX6tXsXbKh5mzytmMk2/g29pmu', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', 'JUAN@GMAIL.COM', '7777777', 'PERIODISTA', '1710777252_JPERES.jpg', 1, '2024-03-18', '2024-03-18 15:54:12', '2024-03-18 15:54:54'),
+(3, 'MMAMANI', '$2y$12$J.21aLLDSTyAyqFR/4Mz2u.GvMke0EVGfzP/XwaInHI1BeUeQSihm', 'MARIA', 'MAMANI', 'MAMANI', '3333', 'LP', 'LOS OLIVOS', '', '77777', 'ANALISTA DE VIDEO', '1711987237_MMAMANI.png', 1, '2024-04-01', '2024-04-01 16:00:37', '2024-04-01 16:00:37'),
+(4, 'MGONZALES', '$2y$12$3Eno6A.rM5f3k1zcgBvxYOFOle6NIOl/tH6CZL/HJGm/seuIk5yMW', 'MARCOS', 'GONZALES', '', '4444', 'LP', 'LOS OLIVOS', '', '777777', 'ANALISTA DEPORTIVO', NULL, 1, '2024-04-01', '2024-04-01 16:00:53', '2024-04-01 16:00:54');
 
 --
 -- Índices para tablas volcadas
@@ -765,7 +778,7 @@ ALTER TABLE `fichajes`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT de la tabla `institucions`
@@ -807,13 +820,13 @@ ALTER TABLE `prediccion_partidos`
 -- AUTO_INCREMENT de la tabla `tabla_posicions`
 --
 ALTER TABLE `tabla_posicions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
