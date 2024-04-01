@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 31-03-2024 a las 17:43:13
+-- Tiempo de generación: 01-04-2024 a las 00:34:10
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -47,7 +47,16 @@ INSERT INTO `alineacion_detalles` (`id`, `alineacion_equipo_id`, `fichaje_id`, `
 (4, 1, 4, 4, '2024-03-31 17:38:41', '2024-03-31 17:38:41'),
 (5, 1, 5, 5, '2024-03-31 17:38:41', '2024-03-31 17:38:41'),
 (6, 1, 6, 6, '2024-03-31 17:38:41', '2024-03-31 17:38:41'),
-(8, 1, 8, 8, '2024-03-31 17:38:59', '2024-03-31 17:38:59');
+(8, 1, 8, 8, '2024-03-31 17:38:59', '2024-03-31 17:38:59'),
+(9, 2, 13, 13, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(10, 2, 14, 14, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(11, 2, 15, 15, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(12, 2, 16, 16, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(13, 2, 17, 17, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(14, 2, 18, 18, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(15, 2, 19, 19, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(16, 2, 20, 20, '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(17, 2, 21, 21, '2024-03-31 22:54:16', '2024-03-31 22:54:16');
 
 -- --------------------------------------------------------
 
@@ -69,7 +78,8 @@ CREATE TABLE `alineacion_equipos` (
 --
 
 INSERT INTO `alineacion_equipos` (`id`, `equipo_id`, `nombre`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ALINEACION #1', '2024-03-31', '2024-03-31 17:20:12', '2024-03-31 17:20:12');
+(1, 1, 'ALINEACION #1', '2024-03-31', '2024-03-31 17:20:12', '2024-03-31 17:20:12'),
+(2, 2, 'ALINEACION #1 EQUIPO #2', '2024-03-31', '2024-03-31 22:54:16', '2024-03-31 22:54:16');
 
 -- --------------------------------------------------------
 
@@ -330,7 +340,16 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (126, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA ALINEACIÓN DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '13:38:17', '2024-03-31 17:38:17', '2024-03-31 17:38:17'),
 (127, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA ALINEACIÓN DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '13:38:41', '2024-03-31 17:38:41', '2024-03-31 17:38:41'),
 (128, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA ALINEACIÓN DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '13:38:59', '2024-03-31 17:38:59', '2024-03-31 17:38:59'),
-(129, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA ALINEACIÓN DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '13:39:35', '2024-03-31 17:39:35', '2024-03-31 17:39:35');
+(129, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA ALINEACIÓN DE EQUIPO', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'id: 1<br/>equipo_id: 1<br/>nombre: ALINEACION #1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 13:20:12<br/>updated_at: 2024-03-31 13:20:12<br/>', 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '13:39:35', '2024-03-31 17:39:35', '2024-03-31 17:39:35'),
+(130, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA ALINEACIÓN DE EQUIPO', 'id: 2<br/>equipo_id: 2<br/>nombre: ALINEACION #1 EQUIPO #2<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 18:54:16<br/>updated_at: 2024-03-31 18:54:16<br/>', NULL, 'ALINEACIÓN DE EQUIPOS', '2024-03-31', '18:54:16', '2024-03-31 22:54:16', '2024-03-31 22:54:16'),
+(131, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:09:45<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:09:45', '2024-04-01 00:09:45', '2024-04-01 00:09:45'),
+(132, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:09:45<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:19:15<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:19:15', '2024-04-01 00:19:15', '2024-04-01 00:19:15'),
+(133, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:19:15<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:20:28<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:20:28', '2024-04-01 00:20:28', '2024-04-01 00:20:28'),
+(134, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:20:28<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: <br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:30:29<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:30:29', '2024-04-01 00:30:29', '2024-04-01 00:30:29'),
+(135, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: <br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:30:29<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:08<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:31:08', '2024-04-01 00:31:08', '2024-04-01 00:31:08'),
+(136, 1, 'MODIFICACIÓN', 'EL USUARIO  MODIFICÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:08<br/>', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:20<br/>', 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:31:20', '2024-04-01 00:31:20', '2024-04-01 00:31:20'),
+(137, 1, 'ELIMINACIÓN', 'EL USUARIO  ELIMINÓ UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 1<br/>alineacion_local_id: 1<br/>visitante_id: 2<br/>alineacion_visitante_id: 2<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: 3<br/>g_visitante: 1<br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:09:45<br/>updated_at: 2024-03-31 20:31:20<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:32:34', '2024-04-01 00:32:34', '2024-04-01 00:32:34'),
+(138, 1, 'CREACIÓN', 'EL USUARIO  REGISTRO UNA PREDICCIÓN DE PARTIDO', 'id: 1<br/>local_id: 2<br/>alineacion_local_id: 2<br/>visitante_id: 1<br/>alineacion_visitante_id: 1<br/>p_ganador_id: 2<br/>ganador_id: <br/>g_local: <br/>g_visitante: <br/>fecha_registro: 2024-03-31<br/>created_at: 2024-03-31 20:33:59<br/>updated_at: 2024-03-31 20:33:59<br/>', NULL, 'PREDICCIÓN DE PARTIDOS', '2024-03-31', '20:33:59', '2024-04-01 00:33:59', '2024-04-01 00:33:59');
 
 -- --------------------------------------------------------
 
@@ -521,11 +540,21 @@ CREATE TABLE `prediccion_partidos` (
   `alineacion_local_id` bigint UNSIGNED NOT NULL,
   `visitante_id` bigint UNSIGNED NOT NULL,
   `alineacion_visitante_id` bigint UNSIGNED NOT NULL,
-  `r_prediccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `r_final` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `p_ganador_id` bigint UNSIGNED DEFAULT NULL,
+  `ganador_id` bigint UNSIGNED DEFAULT NULL,
+  `g_local` int DEFAULT NULL,
+  `g_visitante` int DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `prediccion_partidos`
+--
+
+INSERT INTO `prediccion_partidos` (`id`, `local_id`, `alineacion_local_id`, `visitante_id`, `alineacion_visitante_id`, `p_ganador_id`, `ganador_id`, `g_local`, `g_visitante`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 2, 2, 1, 1, 2, NULL, NULL, NULL, '2024-03-31', '2024-04-01 00:33:59', '2024-04-01 00:33:59');
 
 -- --------------------------------------------------------
 
@@ -676,7 +705,13 @@ ALTER TABLE `personal_access_tokens`
 -- Indices de la tabla `prediccion_partidos`
 --
 ALTER TABLE `prediccion_partidos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `local_id` (`local_id`),
+  ADD KEY `alineacion_local_id` (`alineacion_local_id`),
+  ADD KEY `visitante_id` (`visitante_id`),
+  ADD KEY `alineacion_visitante_id` (`alineacion_visitante_id`),
+  ADD KEY `p_ganador_id` (`p_ganador_id`),
+  ADD KEY `ganador_id` (`ganador_id`);
 
 --
 -- Indices de la tabla `tabla_posicions`
@@ -700,13 +735,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `alineacion_detalles`
 --
 ALTER TABLE `alineacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `alineacion_equipos`
 --
 ALTER TABLE `alineacion_equipos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
@@ -730,7 +765,7 @@ ALTER TABLE `fichajes`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT de la tabla `institucions`
@@ -766,7 +801,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `prediccion_partidos`
 --
 ALTER TABLE `prediccion_partidos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tabla_posicions`
@@ -816,6 +851,17 @@ ALTER TABLE `fichajes`
 --
 ALTER TABLE `jugador_titulos`
   ADD CONSTRAINT `jugador_titulos_jugador_id_foreign` FOREIGN KEY (`jugador_id`) REFERENCES `jugadors` (`id`);
+
+--
+-- Filtros para la tabla `prediccion_partidos`
+--
+ALTER TABLE `prediccion_partidos`
+  ADD CONSTRAINT `prediccion_partidos_ibfk_1` FOREIGN KEY (`local_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `prediccion_partidos_ibfk_2` FOREIGN KEY (`alineacion_local_id`) REFERENCES `alineacion_equipos` (`id`),
+  ADD CONSTRAINT `prediccion_partidos_ibfk_3` FOREIGN KEY (`visitante_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `prediccion_partidos_ibfk_4` FOREIGN KEY (`alineacion_visitante_id`) REFERENCES `alineacion_equipos` (`id`),
+  ADD CONSTRAINT `prediccion_partidos_ibfk_5` FOREIGN KEY (`p_ganador_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `prediccion_partidos_ibfk_6` FOREIGN KEY (`ganador_id`) REFERENCES `equipos` (`id`);
 
 --
 -- Filtros para la tabla `tabla_posicions`

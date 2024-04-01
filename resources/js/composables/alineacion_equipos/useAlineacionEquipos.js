@@ -41,6 +41,57 @@ export const useAlineacionEquipos = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
+    const getAlineacionEquiposById = async (data) => {
+        try {
+            const response = await axios.get(route("alineacion_equipos.ById"), {
+                headers: { Accept: "application/json" },
+                params: data,
+            });
+            return response.data.alineacion_equipo;
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `${
+                    flash.error
+                        ? flash.error
+                        : err.response?.data
+                        ? err.response?.data?.message
+                        : "Hay errores en el formulario"
+                }`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+            throw err; // Puedes manejar el error según tus necesidades
+        }
+    };
+    const getAlineacionEquiposByEquipo = async (data) => {
+        try {
+            const response = await axios.get(
+                route("alineacion_equipos.byEquipo"),
+                {
+                    headers: { Accept: "application/json" },
+                    params: data,
+                }
+            );
+            return response.data.alineacion_equipos;
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `${
+                    flash.error
+                        ? flash.error
+                        : err.response?.data
+                        ? err.response?.data?.message
+                        : "Hay errores en el formulario"
+                }`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+            throw err; // Puedes manejar el error según tus necesidades
+        }
+    };
 
     const getAlineacionEquiposApi = async (data) => {
         try {
@@ -176,6 +227,8 @@ export const useAlineacionEquipos = () => {
     return {
         oAlineacionEquipo,
         getAlineacionEquipos,
+        getAlineacionEquiposById,
+        getAlineacionEquiposByEquipo,
         getAlineacionEquiposApi,
         saveAlineacionEquipo,
         deleteAlineacionEquipo,

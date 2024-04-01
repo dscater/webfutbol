@@ -7,6 +7,7 @@ use App\Http\Controllers\FichajeController;
 use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\JugadorTituloController;
+use App\Http\Controllers\PrediccionPartidoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TablaPosicionController;
 use App\Http\Controllers\UserController;
@@ -127,8 +128,18 @@ Route::middleware('auth')->group(function () {
 
     // ALINEACION DE EQUIPOS
     Route::get("/alineacion_equipos/paginado", [AlineacionEquipoController::class, 'paginado'])->name("alineacion_equipos.paginado");
+    Route::get("/alineacion_equipos/ById", [AlineacionEquipoController::class, 'ById'])->name("alineacion_equipos.ById");
+    Route::get("/alineacion_equipos/byEquipo", [AlineacionEquipoController::class, 'byEquipo'])->name("alineacion_equipos.byEquipo");
     Route::get("/alineacion_equipos/listado", [AlineacionEquipoController::class, 'listado'])->name("alineacion_equipos.listado");
     Route::resource("alineacion_equipos", AlineacionEquipoController::class)->only(
+        ["index", "create", "edit", "store", "update", "show", "destroy"]
+    );
+
+    // PREDICCION DE PARTIDOS
+    Route::post("/prediccion_partidos/prediccion", [PrediccionPartidoController::class, 'prediccion'])->name("prediccion_partidos.prediccion");
+    Route::get("/prediccion_partidos/paginado", [PrediccionPartidoController::class, 'paginado'])->name("prediccion_partidos.paginado");
+    Route::get("/prediccion_partidos/listado", [PrediccionPartidoController::class, 'listado'])->name("prediccion_partidos.listado");
+    Route::resource("prediccion_partidos", PrediccionPartidoController::class)->only(
         ["index", "create", "edit", "store", "update", "show", "destroy"]
     );
 });

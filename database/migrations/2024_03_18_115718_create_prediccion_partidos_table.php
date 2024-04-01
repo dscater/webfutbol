@@ -17,9 +17,19 @@ return new class extends Migration
             $table->unsignedBigInteger("alineacion_local_id");
             $table->unsignedBigInteger("visitante_id");
             $table->unsignedBigInteger("alineacion_visitante_id");
-            $table->string("r_prediccion");
-            $table->string("r_final")->nullable();
+            $table->unsignedBigInteger("p_ganador_id")->nullable();
+            $table->unsignedBigInteger("ganador_id")->nullable();
+            $table->integer("g_local")->nullable();
+            $table->integer("g_visitante")->nullable();
+            $table->date("fecha_registro");
             $table->timestamps();
+
+            $table->foreign("local_id")->on("equipos")->references("id");
+            $table->foreign("alineacion_local_id")->on("alineacion_equipos")->references("id");
+            $table->foreign("visitante_id")->on("equipos")->references("id");
+            $table->foreign("alineacion_visitante_id")->on("alineacion_equipos")->references("id");
+            $table->foreign("p_ganador_id")->on("equipos")->references("id");
+            $table->foreign("ganador_id")->on("equipos")->references("id");
         });
     }
 

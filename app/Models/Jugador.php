@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,11 +42,20 @@ class Jugador extends Model
         "fecha_registro",
     ];
 
-    protected $appends = ["full_name", "fecha_registro_t", "iniciales_nombre", "url_foto", "mas"];
+    protected $appends = ["full_name", "fecha_registro_t", "iniciales_nombre", "url_foto", "mas", "edad"];
 
     public function getMasAttribute()
     {
         return false;
+    }
+
+    public function getEdadAttribute()
+    {
+        $fecha_nacimiento = $this->fecha_nac;
+        $fecha_nacimiento = new DateTime($fecha_nacimiento);
+        $fecha_actual = new DateTime();
+        $edad = $fecha_actual->diff($fecha_nacimiento)->y;
+        return $edad;
     }
 
     public function getFullNameAttribute()

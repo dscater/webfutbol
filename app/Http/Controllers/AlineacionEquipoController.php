@@ -38,6 +38,14 @@ class AlineacionEquipoController extends Controller
         ]);
     }
 
+    public function byEquipo(Request $request)
+    {
+        $alineacion_equipos = AlineacionEquipo::with(["equipo"])->select("alineacion_equipos.*")->where("equipo_id", $request->id)->get();
+        return response()->JSON([
+            "alineacion_equipos" => $alineacion_equipos
+        ]);
+    }
+
     public function paginado(Request $request)
     {
         $search = $request->search;
@@ -104,6 +112,14 @@ class AlineacionEquipoController extends Controller
 
     public function show(AlineacionEquipo $alineacion_equipo)
     {
+    }
+
+    public function ById(Request $request)
+    {
+        $alineacion_equipo = AlineacionEquipo::find($request->id);
+        return response()->JSON([
+            "alineacion_equipo" => $alineacion_equipo->load(["alineacion_detalles.jugador", "alineacion_detalles.fichaje", "equipo"])
+        ]);
     }
 
     public function edit(AlineacionEquipo $alineacion_equipo)

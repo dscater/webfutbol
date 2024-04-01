@@ -5,6 +5,7 @@ import { useFichajes } from "@/composables/fichajes/useFichajes";
 import { useEquipos } from "@/composables/equipos/useEquipos";
 import { useMenu } from "@/composables/useMenu";
 import { watch, ref, reactive, computed, onMounted } from "vue";
+import InfoJugador from "../InfoJugador.vue";
 
 const { mobile, cambiarUrl } = useMenu();
 const {
@@ -23,12 +24,15 @@ const { getEquipos } = useEquipos();
 const listEquipos = ref([]);
 const listFichajes = ref([]);
 
+const open_dialog = ref(false);
+const accion_dialog = ref(0);
+const o_jugador = ref(null);
 const enviando = ref(false);
 
 const tituloDialog = computed(() => {
     return oAlineacionEquipo.id == 0
-        ? `Agregar AlineacionEquipo`
-        : `Editar AlineacionEquipo`;
+        ? `Agregar Alineación de Equipo`
+        : `Editar Alineación de Equipo`;
 });
 
 const enviarFormulario = () => {
@@ -145,6 +149,11 @@ onMounted(() => {
     }
     cargarListas();
 });
+
+const showInfoJugador = (item) => {
+    o_jugador.value = item.jugador;
+    open_dialog.value = true;
+};
 </script>
 
 <template>
@@ -286,10 +295,32 @@ onMounted(() => {
                                             "
                                         >
                                             <template v-slot:prepend>
-                                                <div class="px-4">
-                                                    <span class="text-body-1"
+                                                <div>
+                                                    <span
+                                                        class="text-body-1 ml-3 mr-2"
                                                         >{{ i + 1 }})</span
                                                     >
+                                                    <v-avatar
+                                                        color="primary"
+                                                        class="mr-2"
+                                                    >
+                                                        <v-img
+                                                            :src="
+                                                                item?.jugador
+                                                                    .url_foto
+                                                            "
+                                                            alt="Foto"
+                                                            cover
+                                                            v-if="
+                                                                item?.jugador
+                                                                    .url_foto
+                                                            "
+                                                        ></v-img>
+                                                        <span v-else>{{
+                                                            item?.jugador
+                                                                .iniciales_nombre
+                                                        }}</span>
+                                                    </v-avatar>
                                                 </div>
                                             </template>
                                             <template v-slot:title>
@@ -314,24 +345,36 @@ onMounted(() => {
                                                 </div>
                                             </template>
                                             <template v-slot:append>
-                                                <v-avatar color="primary">
-                                                    <v-img
-                                                        :src="
-                                                            item?.jugador
-                                                                .url_foto
+                                                <div>
+                                                    <v-btn
+                                                        class="ml-1"
+                                                        variant="outlined"
+                                                        icon="mdi-account"
+                                                        size="x-small"
+                                                        @click.stop="
+                                                            showInfoJugador(
+                                                                item
+                                                            )
                                                         "
-                                                        alt="Foto"
-                                                        cover
+                                                    ></v-btn>
+                                                    <v-btn
                                                         v-if="
-                                                            item?.jugador
-                                                                .url_foto
+                                                            !validarExistencia(
+                                                                item.jugador_id
+                                                            )
                                                         "
-                                                    ></v-img>
-                                                    <span v-else>{{
-                                                        item?.jugador
-                                                            .iniciales_nombre
-                                                    }}</span>
-                                                </v-avatar>
+                                                        class="ml-1"
+                                                        color="success"
+                                                        variant="outlined"
+                                                        icon="mdi-plus"
+                                                        size="x-small"
+                                                        @click="
+                                                            agregarAlineacion(
+                                                                item
+                                                            )
+                                                        "
+                                                    ></v-btn>
+                                                </div>
                                             </template>
                                         </v-list-item>
                                         <v-divider
@@ -385,10 +428,32 @@ onMounted(() => {
                                         @click="eliminaAlineacion(i, item)"
                                     >
                                         <template v-slot:prepend>
-                                            <div class="px-4">
-                                                <span class="text-body-1"
+                                            <div>
+                                                <span
+                                                    class="text-body-1 ml-3 mr-2"
                                                     >{{ i + 1 }})</span
                                                 >
+                                                <v-avatar
+                                                    color="primary"
+                                                    class="mr-2"
+                                                >
+                                                    <v-img
+                                                        :src="
+                                                            item?.jugador
+                                                                .url_foto
+                                                        "
+                                                        alt="Foto"
+                                                        cover
+                                                        v-if="
+                                                            item?.jugador
+                                                                .url_foto
+                                                        "
+                                                    ></v-img>
+                                                    <span v-else>{{
+                                                        item?.jugador
+                                                            .iniciales_nombre
+                                                    }}</span>
+                                                </v-avatar>
                                             </div>
                                         </template>
                                         <template v-slot:title>
@@ -411,22 +476,30 @@ onMounted(() => {
                                             </div>
                                         </template>
                                         <template v-slot:append>
-                                            <v-avatar color="primary">
-                                                <v-img
-                                                    :src="
-                                                        item?.jugador.url_foto
+                                            <div>
+                                                <v-btn
+                                                    class="ml-1"
+                                                    variant="outlined"
+                                                    icon="mdi-account"
+                                                    size="x-small"
+                                                    @click.stop="
+                                                        showInfoJugador(item)
                                                     "
-                                                    alt="Foto"
-                                                    cover
-                                                    v-if="
-                                                        item?.jugador.url_foto
+                                                ></v-btn>
+                                                <v-btn
+                                                    class="ml-1"
+                                                    color="red-darken-3"
+                                                    variant="outlined"
+                                                    icon="mdi-close"
+                                                    size="x-small"
+                                                    @click="
+                                                        eliminaAlineacion(
+                                                            i,
+                                                            item
+                                                        )
                                                     "
-                                                ></v-img>
-                                                <span v-else>{{
-                                                    item?.jugador
-                                                        .iniciales_nombre
-                                                }}</span>
-                                            </v-avatar>
+                                                ></v-btn>
+                                            </div>
                                         </template>
                                     </v-list-item>
                                     <v-divider
@@ -447,6 +520,15 @@ onMounted(() => {
             </v-card>
         </v-col>
     </v-row>
+    <InfoJugador
+        :jugador="o_jugador"
+        :open_dialog="open_dialog"
+        :accion_dialog="accion_dialog"
+        @cerrar-dialog="
+            open_dialog = false;
+            o_jugador = null;
+        "
+    ></InfoJugador>
 </template>
 
 <style scoped></style>
