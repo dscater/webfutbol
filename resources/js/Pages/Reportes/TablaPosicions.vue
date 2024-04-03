@@ -135,7 +135,7 @@ const generarReporte = async () => {
                         headerFormat:
                             '<span style="font-size:11px">{series.name}</span><br>',
                         pointFormat:
-                            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> pacientes<br/>',
+                            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
                     },
 
                     series: [
