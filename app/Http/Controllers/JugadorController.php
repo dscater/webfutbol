@@ -77,7 +77,7 @@ class JugadorController extends Controller
 
     public function listado(Request $request)
     {
-        $jugadors = Jugador::select("jugadors.*");
+        $jugadors = Jugador::select("jugadors.id", "jugadors.nombre", "jugadors.paterno", "jugadors.materno");
 
         if (isset($request->sin_fichaje) && $request->sin_fichaje) {
             if ($request->id) {
@@ -98,9 +98,10 @@ class JugadorController extends Controller
         }
 
         $jugadors = $jugadors->get();
-        return response()->JSON([
+
+        return response()->json([
             "jugadors" => $jugadors
-        ]);
+        ], 200, [], JSON_INVALID_UTF8_SUBSTITUTE);
     }
 
     public function paginado(Request $request)
