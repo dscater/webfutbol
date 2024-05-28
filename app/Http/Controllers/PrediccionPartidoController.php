@@ -92,8 +92,8 @@ class PrediccionPartidoController extends Controller
         $suma_puntuacion_local = $suma_puntuacion_local / 11;
         $suma_puntuacion_visitante = $suma_puntuacion_visitante / 11;
 
-        $asvm = new AlgoritmoSVMController();
-        $asvm->aplicarSVM($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local->id, $alineacion_visitante->id);
+        // $asvm = new AlgoritmoSVMController();
+        // $asvm->aplicarSVM($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local->id, $alineacion_visitante->id);
 
         // aplicar los datos obtenidos para filtrar al ganador
         sleep(2);
