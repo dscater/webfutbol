@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AlineacionDetalle;
 use App\Models\AlineacionEquipo;
+use App\Models\Fichaje;
 use App\Models\HistorialAccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,7 @@ class AlineacionEquipoController extends Controller
 
     public function store(Request $request)
     {
+        Log::debug($request->alineacion_detalles);
         $request->validate($this->validacion, $this->mensajes);
 
         if (!isset($request->alineacion_detalles) || count($request->alineacion_detalles) < 7) {
@@ -83,10 +85,18 @@ class AlineacionEquipoController extends Controller
             $nuevo_alineacion_equipo = AlineacionEquipo::create(array_map('mb_strtoupper', $request->except("eliminados", "alineacion_detalles")));
 
             foreach ($request->alineacion_detalles as $value) {
-                $nuevo_alineacion_equipo->alineacion_detalles()->create([
-                    "fichaje_id" => $value["fichaje_id"],
-                    "jugador_id" => $value["jugador_id"],
-                ]);
+                if (isset($value["fichaje_id"]) && $value["fichaje_id"] && isset($value["jugador_id"]) && $value["jugador_id"]) {
+                    $nuevo_alineacion_equipo->alineacion_detalles()->create([
+                        "fichaje_id" => $value["fichaje_id"],
+                        "jugador_id" => $value["jugador_id"],
+                    ]);
+                } elseif (isset($value["jugador_id"]) && $value["jugador_id"]) {
+                    $fichaje = Fichaje::find($value["fichaje_id"]);
+                    $nuevo_alineacion_equipo->alineacion_detalles()->create([
+                        "fichaje_id" => $value["fichaje_id"],
+                        "jugador_id" => $fichaje->jugador_id,
+                    ]);
+                }
             }
 
             $datos_original = HistorialAccion::getDetalleRegistro($nuevo_alineacion_equipo, "alineacion_equipos");

@@ -15,38 +15,88 @@ class PrediccionRegresionLinea extends Controller
     {
         // COMENZAR CON EL ENTRENAMIENTO Y PREDICCIÓN
         // Datos de entrenamiento
-        $data = [
-            [10, 5, 3, 8, 7, 2],
-            [12, 3, 3,  9, 6, 1],
-            [8, 7, 2,  9, 3, 3],
-            [11, 4, 3, 4, 5, 3],
-            [9, 2, 2,  5, 4, 8],
-            [6, 3, 2,  6, 4, 4],
-            [7, 4, 2,  6, 4, 5],
-            [8, 5, 1,  2, 4, 3],
-            [2, 6, 2,  3, 4, 2],
-            [4, 6, 0,  7, 4, 0],
-            [3, 4, 1,  2, 4, 9],
-            [2, 3, 1,  7, 4, 4],
-            [7, 2, 1,  9, 4, 1],
-            [11, 3, 0, 8, 4, 2],
-            [8, 5, 1,  2, 4, 3],
-            [6, 3, 4, 5, 5, 1],
-            [3, 4, 1,  2, 4, 9],
-            [2, 6, 2,  3, 4, 2],
-            [9, 2, 2,  5, 4, 8],
-            [4, 6, 0,  7, 4, 0],
-            [6, 3, 1,  7, 2, 2],
-            [4, 6, 0,  7, 2, 0],
-            [3, 4, 1,  2, 4, 9],
-            [2, 3, 1,  7, 4, 4],
-            [7, 2, 1,  9, 4, 1],
-            [4, 6, 0,  7, 4, 0],
-            [4, 6, 0,  7, 4, 0],
-        ];
+        $data = [];
+        // buscar y recolectar datos del equipo
+        $datos_equipo_local = PrediccionPartido::where("local_id", $alineacion_local->equipo_id)
+            ->orWhere("visitante_id", $alineacion_local->equipo_id)
+            ->orderBy("id", "desc")
+            ->get();
+        // armar los datos que se utilizaran
+        $datos_local = [];
+        foreach ($datos_equipo_local as $item) {
+            $victoria = 0;
+            $empate = 0;
+            $derrota = 0;
+            $g = 0;
+            $gf = 0;
+            $gc = 0;
+            if ($datos_equipo_local->p_ganador_id == $alineacion_local->equipo_id || $datos_equipo_local->ganador_id == $alineacion_local->equipo_id) {
+                $victoria = 1;
+            } elseif (!$datos_equipo_local->p_ganador_id || ($datos_equipo_local->g_local != null && $datos_equipo_local->g_visitante != null && $datos_equipo_local->g_local == $datos_equipo_local->g_visitante)) {
+                $empate = 1;
+            } elseif ($datos_equipo_local->p_ganador_id != $alineacion_local->equipo_id || $datos_equipo_local->ganador_id != $alineacion_local->equipo_id) {
+                $derrota = 1;
+            }
+            if ($datos_equipo_local->g_local && $datos_equipo_local->g_visitante) {
+                $g = $datos_equipo_local->g_local;
+                $gf = $datos_equipo_local->g_local;
+                $gc = $datos_equipo_local->g_visitante;
+            }
+            $datos_local[]  = [$victoria, $empate, $derrota, $g, $gf, $gc];
+        }
+        $equipo = Equipo::find($visitante_id);
+        // buscar y recolectar datos del equipo
+        $datos_equipo_visitante = PrediccionPartido::where("local_id", $alineacion_visitante->equipo_id)
+            ->orWhere("visitante_id", $alineacion_visitante->equipo_id)
+            ->orderBy("id", "desc")
+            ->get();
+        // armar los datos que se utilizaran para el modelo
+        $datos_visitante = [];
+        foreach ($datos_equipo_visitante as $item) {
+            $victoria = 0;
+            $empate = 0;
+            $derrota = 0;
+            $g = 0;
+            $gf = 0;
+            $gc = 0;
+            if ($datos_equipo_visitante->p_ganador_id == $alineacion_visitante->equipo_id || $datos_equipo_visitante->ganador_id == $alineacion_visitante->equipo_id) {
+                $data[1]["data"][0] = (int)$data[1]["data"][0] + 1;
+            } elseif (!$datos_equipo_visitante->p_ganador_id || ($datos_equipo_visitante->g_local != null && $datos_equipo_visitante->g_visitante != null && $datos_equipo_visitante->g_local == $datos_equipo_visitante->g_visitante)) {
+                $data[1]["data"][1] = (int)$data[1]["data"][1] + 1;
+            } elseif ($datos_equipo_visitante->p_ganador_id != $alineacion_visitante->equipo_id || $datos_equipo_visitante->ganador_id != $alineacion_visitante->equipo_id) {
+                $data[1]["data"][2] = (int)$data[1]["data"][2] + 1;
+            }
+            if ($datos_equipo_local->g_local && $datos_equipo_local->g_visitante) {
+                $g = $datos_equipo_local->g_visitante;
+                $gf = $datos_equipo_local->g_visitante;
+                $gc = $datos_equipo_local->g_local;
+            }
+            $datos_visitante[]  = [$victoria, $empate, $derrota, $g, $gf, $gc];
+        }
 
-        $targets = [1, 1, 0, 1, 0, -1]; // 1 si el equipo 1 gana, 0 si el equipo 2 gana, -1 empate
+        // buscar y recolectar datos del equipo de información existente
+        $datos_equipo_local = TablaPosicion::where("equipo_id", $alineacion_local->equpo_id)->get();
 
+        // armar los datos que se utilizaran
+        $datos_local = [];
+        foreach ($datos_equipo_local as $item) {
+            $datos_local[]  = [$item->pj, $item->g, $item->e, $item->p, $item->gf, $item->gc, $item->dg];
+        }
+
+        $equipo_visitante = Equipo::find($visitante_id);
+        // buscar y recolectar datos del equipo
+        $datos_equipo_visitante = TablaPosicion::where("equipo_id", $alineacion_visitante->equipo_id)->get();
+
+        // armar los datos que se utilizaran para el modelo
+        $datos_visitante = [];
+        foreach ($datos_equipo_visitante as $item) {
+            $datos_visitante[] = [$item->pj, $item->g, $item->e, $item->gf, $item->gc, $item->dg];
+        }
+
+        // unir los datos para el analisis y obtencion del modelo
+        $data[] = $datos_local;
+        $data[] = $datos_visitante;
+        $targets = [];
         // Dividir el conjunto de datos en entrenamiento y prueba
         $splitRatio = 0.8;
         $splitIndex = (int) ($splitRatio * count($data));
@@ -82,8 +132,8 @@ class PrediccionRegresionLinea extends Controller
         $datos_prediccion = [];
         $equipo_local = Equipo::find($local_id);
 
-        // buscar y recolectar datos del equipo
-        $datos_equipo_local = TablaPosicion::where("equipo_id", $equipo_local->id)->get();
+        // Se usara la ultima información de cada equipo
+        $datos_equipo_local = TablaPosicion::where("equipo_id", $equipo_local->id)->orderBy("created_at", "desc")->get()->take(5);
 
         // armar los datos que se utilizaran
         $datos_local = [];
@@ -93,14 +143,12 @@ class PrediccionRegresionLinea extends Controller
 
         $equipo_visitante = Equipo::find($visitante_id);
         // buscar y recolectar datos del equipo
-        $datos_equipo_visitante = TablaPosicion::where("equipo_id", $equipo_visitante->id)->get();
-
+        $datos_equipo_visitante = TablaPosicion::where("equipo_id", $equipo_visitante->id)->orderBy("created_at", "desc")->get()->take(5);
         // armar los datos que se utilizaran para el modelo
         $datos_visitante = [];
         foreach ($datos_equipo_visitante as $item) {
             $datos_visitante[] = [$item->pj, $item->g, $item->e, $item->gf, $item->gc, $item->dg];
         }
-
         // obtener el minimo y maximo de resultados para cada equipo
         $total_datos_local = count($datos_local);
         $total_datos_visitante = count($datos_visitante);

@@ -6,6 +6,7 @@ import { useEquipos } from "@/composables/equipos/useEquipos";
 import { useMenu } from "@/composables/useMenu";
 import { watch, ref, reactive, computed, onMounted } from "vue";
 import InfoJugador from "../InfoJugador.vue";
+import Swal from "sweetalert2";
 
 const { mobile, cambiarUrl } = useMenu();
 const {
@@ -37,8 +38,14 @@ const tituloDialog = computed(() => {
 
 const enviarFormulario = () => {
     enviando.value = true;
-    form["alineacion_detalles"] = oAlineacionEquipo.alineacion_detalles;
-    form["eliminados"] = oAlineacionEquipo.eliminados;
+    // form["alineacion_detalles"] = oAlineacionEquipo.alineacion_detalles;
+    // form["eliminados"] = oAlineacionEquipo.eliminados;
+
+    form.alineacion_detalles = form.alineacion_detalles.map((item) => {
+        // Usar desestructuración para eliminar las propiedades 'b' y 'c'
+        const { fichaje, jugador, ...newItem } = item;
+        return newItem;
+    });
 
     let url =
         form["_method"] == "POST"
@@ -58,8 +65,12 @@ const enviarFormulario = () => {
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: `Aceptar`,
                 });
-                limpiarAlineacionEquipo();
                 cambiarUrl(route("alineacion_equipos.index"));
+                limpiarAlineacionEquipo();
+                form.alineacion_detalles = [];
+                form.eliminados = [];
+                form.nombre = "";
+                form.equipo_id = null;
             },
             onError: (err) => {
                 enviando.value = false;
@@ -106,19 +117,40 @@ const cargaFichajes = async (id = "") => {
 
 const agregarAlineacion = (item) => {
     if (!validarExistencia(item.jugador_id) && validarMaximo()) {
-        addAlineacionDetalle({
-            id: 0,
-            alineacion_equipo_id: 0,
-            fichaje_id: item.id,
-            fichaje: item,
-            jugador_id: item.jugador_id,
-            jugador: item.jugador,
-        });
+        if (item.jugador && item.jugador_id) {
+            addAlineacionForm({
+                id: 0,
+                alineacion_equipo_id: 0,
+                fichaje_id: item.id,
+                fichaje: item,
+                jugador_id: item.jugador_id,
+                jugador: item.jugador,
+            });
+        } else {
+            Swal.fire({
+                icon: "info",
+                title: "Error",
+                text: `No se pudo agregar al jugador`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+        }
     }
 };
 
+const addAlineacionForm = (item) => {
+    form.alineacion_detalles.push(item);
+};
+
+const eliminarAlineacionDetalleForm = (index, id) => {
+    if (id != 0) {
+        form.eliminados.push(id);
+    }
+    form.alineacion_detalles.splice(index, 1);
+};
+
 const validarMaximo = () => {
-    if (oAlineacionEquipo.alineacion_detalles.length >= 11) {
+    if (form.alineacion_detalles.length >= 11) {
         Swal.fire({
             icon: "info",
             title: "Atención",
@@ -132,7 +164,7 @@ const validarMaximo = () => {
 };
 
 const validarExistencia = (jugador_id) => {
-    let existe = oAlineacionEquipo.alineacion_detalles.filter(
+    let existe = form.alineacion_detalles.filter(
         (elem) => elem.jugador_id === jugador_id
     );
     if (existe.length > 0) {
@@ -142,7 +174,7 @@ const validarExistencia = (jugador_id) => {
 };
 
 const eliminaAlineacion = (index, item) => {
-    eliminarAlineacionDetalle(index, item.id);
+    eliminarAlineacionDetalleForm(index, item.id);
 };
 onMounted(() => {
     if (form.id && form.id != "") {
@@ -307,18 +339,18 @@ const showInfoJugador = (item) => {
                                                         <v-img
                                                             :src="
                                                                 item?.jugador
-                                                                    .url_foto
+                                                                    ?.url_foto
                                                             "
                                                             alt="Foto"
                                                             cover
                                                             v-if="
                                                                 item?.jugador
-                                                                    .url_foto
+                                                                    ?.url_foto
                                                             "
                                                         ></v-img>
                                                         <span v-else>{{
                                                             item?.jugador
-                                                                .iniciales_nombre
+                                                                ?.iniciales_nombre
                                                         }}</span>
                                                     </v-avatar>
                                                 </div>
@@ -326,7 +358,7 @@ const showInfoJugador = (item) => {
                                             <template v-slot:title>
                                                 <v-list-item-title
                                                     v-text="
-                                                        item?.jugador.full_name
+                                                        item?.jugador?.full_name
                                                     "
                                                 >
                                                 </v-list-item-title>
@@ -410,22 +442,21 @@ const showInfoJugador = (item) => {
                         </v-col>
                         <v-col
                             cols="12"
-                            v-if="
-                                oAlineacionEquipo.alineacion_detalles.length > 0
-                            "
+                            v-if="form.alineacion_detalles.length > 0"
                             class="pt-0"
                         >
                             <v-list class="pt-0">
                                 <template
                                     v-for="(
                                         item, i
-                                    ) in oAlineacionEquipo.alineacion_detalles"
+                                    ) in form.alineacion_detalles"
                                 >
                                     <v-list-item
                                         :value="item"
                                         color="primary"
                                         class="pl-0"
                                         @click="eliminaAlineacion(i, item)"
+                                        v-if="item.jugador && item.fichaje"
                                     >
                                         <template v-slot:prepend>
                                             <div>
@@ -440,25 +471,27 @@ const showInfoJugador = (item) => {
                                                     <v-img
                                                         :src="
                                                             item?.jugador
-                                                                .url_foto
+                                                                ?.url_foto
                                                         "
                                                         alt="Foto"
                                                         cover
                                                         v-if="
                                                             item?.jugador
-                                                                .url_foto
+                                                                ?.url_foto
                                                         "
                                                     ></v-img>
                                                     <span v-else>{{
                                                         item?.jugador
-                                                            .iniciales_nombre
+                                                            ?.iniciales_nombre
                                                     }}</span>
                                                 </v-avatar>
                                             </div>
                                         </template>
                                         <template v-slot:title>
                                             <v-list-item-title
-                                                v-text="item?.jugador.full_name"
+                                                v-text="
+                                                    item?.jugador?.full_name
+                                                "
                                             >
                                             </v-list-item-title>
                                         </template>

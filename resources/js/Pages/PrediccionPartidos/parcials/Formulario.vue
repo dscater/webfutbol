@@ -5,7 +5,21 @@ import { useEquipos } from "@/composables/equipos/useEquipos";
 import { useAlineacionEquipos } from "@/composables/alineacion_equipos/useAlineacionEquipos";
 import { useMenu } from "@/composables/useMenu";
 import { watch, ref, reactive, computed, onMounted } from "vue";
-
+import Highcharts from "highcharts";
+import exporting from "highcharts/modules/exporting";
+exporting(Highcharts);
+Highcharts.setOptions({
+    lang: {
+        downloadPNG: "Descargar PNG",
+        downloadJPEG: "Descargar JPEG",
+        downloadPDF: "Descargar PDF",
+        downloadSVG: "Descargar SVG",
+        printChart: "Imprimir gráfico",
+        contextButtonTitle: "Menú de exportación",
+        viewFullscreen: "Pantalla completa",
+        exitFullscreen: "Salir de pantalla completa",
+    },
+});
 const { mobile, cambiarUrl } = useMenu();
 const {
     oPrediccionPartido,
@@ -169,6 +183,7 @@ const cargaJugadoresAlineacionVisitante = async (id = "") => {
 
 const muestra_resultado = ref(false);
 const loading = ref(false);
+const r2 = ref(0);
 const generarPrediccion = () => {
     loading.value = true;
     muestra_resultado.value = false;
@@ -185,6 +200,18 @@ const generarPrediccion = () => {
                     form.p_ganador_id = response.data.ganador.id;
                     setPGanadorPartido(response.data.ganador);
                 }
+
+                r2.value = response.data.r2;
+                grafico1(
+                    response.data.regresion,
+                    response.data.equipo1,
+                    response.data.equipo2,
+                    response.data.nom1,
+                    response.data.nom2
+                );
+                grafico2(response.data.valoracion_alineacion);
+                grafico3(response.data.valoracion_jugadores);
+                grafico4(response.data.categorias, response.data.data);
                 setTimeout(() => {
                     loading.value = false;
                     muestra_resultado.value = true;
@@ -211,6 +238,251 @@ const generarPrediccion = () => {
             confirmButtonText: `Aceptar`,
         });
     }
+};
+
+// Función que define f(x) = 2.1x - 1
+function f(x) {
+    return 2.1 * x - 1;
+}
+
+// Rendimiento de los equipos A y B
+var rendimientoEquipoA = 5; // Valor de ejemplo para el equipo A
+var rendimientoEquipoB = 1; // Valor de ejemplo para el equipo B
+
+// Predicción para los equipos A y B
+var prediccionEquipoA = f(rendimientoEquipoA);
+var prediccionEquipoB = f(rendimientoEquipoB);
+
+// Generar datos para la línea de regresión
+var data = [];
+for (var x = 0; x <= 100; x++) {
+    data.push([x, f(x)]);
+}
+
+const grafico1 = (regresion, equipo1, equipo2, nom1, nom2) => {
+    // Configurar el gráfico con Highcharts
+    Highcharts.chart("container1", {
+        title: {
+            text: "Predicción de Resultados de Equipos de Fútbol",
+        },
+        xAxis: {
+            title: {
+                text: "Puntuación esperada",
+            },
+            min: 0,
+        },
+        yAxis: {
+            title: {
+                text: "Rendimiento",
+            },
+        },
+        series: [
+            {
+                name: "Línea de Regresión",
+                data: regresion,
+                type: "line",
+                color: "red",
+                marker: {
+                    enabled: false,
+                },
+            },
+            {
+                name: nom1,
+                data: equipo1,
+                type: "scatter",
+                color: "blue",
+                marker: {
+                    symbol: "circle",
+                    radius: 6, // Tamaño del punto para el equipo A
+                },
+            },
+            {
+                name: nom2,
+                data: equipo2,
+                type: "scatter",
+                color: "green",
+                marker: {
+                    symbol: "square",
+                    radius: 6, // Tamaño del punto para el equipo B
+                },
+            },
+        ],
+        tooltip: {
+            formatter: function () {
+                return (
+                    "Puntuación esperada: <b>" +
+                    this.x.toFixed(2) +
+                    "</b><br>Rendimiento: <b>" +
+                    this.y.toFixed(2) +
+                    "</b>"
+                );
+            },
+        },
+    });
+};
+
+const grafico2 = (datos) => {
+    // Create the chart
+    Highcharts.chart("container2", {
+        chart: {
+            type: "column",
+        },
+        title: {
+            align: "center",
+            text: "Valoración de alineación",
+        },
+        subtitle: {
+            align: "left",
+            text: "",
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+            },
+        },
+        xAxis: {
+            type: "category",
+        },
+        yAxis: {
+            title: {
+                text: "Puntaje Valoración",
+            },
+        },
+        legend: {
+            enabled: true,
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.y:.0f}",
+                },
+            },
+        },
+
+        tooltip: {
+            headerFormat:
+                '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat:
+                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
+        },
+
+        series: [
+            {
+                name: "Total",
+                colorByPoint: true,
+                data: datos,
+            },
+        ],
+    });
+};
+
+const grafico3 = (datos) => {
+    // Create the chart
+    Highcharts.chart("container3", {
+        chart: {
+            type: "column",
+        },
+        title: {
+            align: "center",
+            text: "Valoración Jugadores",
+        },
+        subtitle: {
+            align: "left",
+            text: "",
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+            },
+        },
+        xAxis: {
+            type: "category",
+        },
+        yAxis: {
+            title: {
+                text: "Puntaje Valoración",
+            },
+        },
+        legend: {
+            enabled: true,
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.y:.0f}",
+                },
+            },
+        },
+
+        tooltip: {
+            headerFormat:
+                '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat:
+                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
+        },
+
+        series: [
+            {
+                name: "Total",
+                colorByPoint: true,
+                data: datos,
+            },
+        ],
+    });
+};
+const grafico4 = (categories, series) => {
+    // Create the chart
+    Highcharts.chart("container4", {
+        chart: {
+            type: "column",
+        },
+        title: {
+            align: "center",
+            text: "Resultados últimos encuentros",
+        },
+        subtitle: {
+            align: "left",
+            text: "",
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+            },
+        },
+        xAxis: {
+            categories: categories,
+        },
+        yAxis: {
+            title: {
+                text: "Total",
+            },
+        },
+        legend: {
+            enabled: true,
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.y:.0f}",
+                },
+            },
+        },
+
+        tooltip: {
+            headerFormat:
+                '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat:
+                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
+        },
+
+        series: series,
+    });
 };
 
 onMounted(() => {
@@ -991,12 +1263,20 @@ onMounted(() => {
                                     </v-card>
                                 </v-col>
                             </v-row>
-                            <v-row v-if="muestra_resultado">
-                                <v-col cols="12" class="pb-0"><h3 class="w-100 text-center">Resultado de la Predicción</h3></v-col>
+                            <v-row v-if="muestra_resultado" class="bg-primary">
+                                <v-col cols="12" class="pb-0"
+                                    ><h2 class="w-100 text-center text-h4">
+                                        Resultado de la Predicción
+                                    </h2></v-col
+                                >
                                 <v-col cols="12">
-                                    <v-alert class="bg-green-darken-3">
+                                    <v-alert
+                                        class="bg-green-darken-3 elevation-10"
+                                    >
                                         <template v-slot:title>
-                                            <div class="text-center w-100">
+                                            <div
+                                                class="text-center w-100 font-weight-bold"
+                                            >
                                                 <span
                                                     v-if="
                                                         oPrediccionPartido.p_ganador &&
@@ -1012,6 +1292,21 @@ onMounted(() => {
                                             </div>
                                         </template>
                                     </v-alert>
+                                </v-col>
+                            </v-row>
+                            <v-row v-show="muestra_resultado">
+                                <v-col cols="12">
+                                    <span>R^2 = {{ r2 }}</span>
+                                    <div id="container1"></div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div id="container2"></div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div id="container3"></div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div id="container4"></div>
                                 </v-col>
                             </v-row>
                         </form>
