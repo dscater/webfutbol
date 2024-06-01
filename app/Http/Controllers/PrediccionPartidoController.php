@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AlineacionDetalle;
 use App\Models\AlineacionEquipo;
+use App\Models\Equipo;
 use App\Models\HistorialAccion;
 use App\Models\PrediccionPartido;
 use Illuminate\Http\Request;
@@ -94,24 +95,16 @@ class PrediccionPartidoController extends Controller
         $alineacion_local = AlineacionEquipo::find($alineacion_local_id);
         $alineacion_visitante = AlineacionEquipo::find($alineacion_visitante_id);
 
-        $ganador = null;
-
-        // Log::debug($suma_puntuacion_local);
-        // Log::debug($suma_puntuacion_visitante);
+        $valores = null;
 
         $suma_puntuacion_local = $suma_puntuacion_local / 11;
         $suma_puntuacion_visitante = $suma_puntuacion_visitante / 11;
 
-        // $asvm = new AlgoritmoSVMController();
-        // $asvm->aplicarSVM($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local->id, $alineacion_visitante->id);
-
-        // aplicar los datos obtenidos para filtrar al ganador
+        // llenar los valores segun la alineacion
         sleep(2);
-        // Log::debug($suma_puntuacion_local);
-        // Log::debug($suma_puntuacion_visitante);
         $valoracion_alineacion = [[$alineacion_local->equipo->nombre, 0], [$alineacion_visitante->equipo->nombre, 0]];
         if ($suma_puntuacion_local > $suma_puntuacion_visitante) {
-            $ganador = $alineacion_local->equipo;
+            $valores = $alineacion_local->equipo;
             $dif = $suma_puntuacion_local - $suma_jugadores_visitante;
             if ($dif < 3) {
                 $suma_puntuacion_local  = $suma_puntuacion_local * 1.3;
@@ -122,7 +115,7 @@ class PrediccionPartidoController extends Controller
             if ($dif < 3) {
                 $suma_puntuacion_visitante  = $suma_puntuacion_visitante * 1.3;
             }
-            $ganador = $alineacion_visitante->equipo;
+            $valores = $alineacion_visitante->equipo;
             $valoracion_alineacion = [[$alineacion_local->equipo->nombre, (float)$suma_puntuacion_local], [$alineacion_visitante->equipo->nombre, (float)$suma_puntuacion_visitante]];
         }
 
@@ -130,19 +123,46 @@ class PrediccionPartidoController extends Controller
         $suma_jugadores_visitante = $suma_jugadores_visitante / count($alineacion_visitante->alineacion_detalles);
 
 
-        $valoracion_jugadores = [[$alineacion_local->equipo->nombre, (float)$suma_jugadores_local], [$alineacion_visitante->equipo->nombre, (float)$suma_jugadores_visitante]];
+        $valoracion_jugadores1 = [];
+        $alineacion_local_detalles = AlineacionDetalle::select("alineacion_detalles.*")
+            ->join("jugadors", "jugadors.id", "=", "alineacion_detalles.jugador_id")
+            ->where("alineacion_equipo_id", $alineacion_local->id)
+            ->orderBy("jugadors.puntuacion_valorada", "asc")
+            ->get();
+        $maximo_val_jugadores = 0;
+        foreach ($alineacion_local_detalles as $item) {
+            $valoracion_jugadores1[] = [$item->jugador->full_name, (float)$item->jugador->puntuacion_valorada];
+            if ($item->jugador->puntuacion_valorada > $maximo_val_jugadores) {
+                $maximo_val_jugadores = $item->jugador->puntuacion_valorada;
+            }
+        }
+        $valoracion_jugadores2 = [];
+        $alineacion_visitante_detalles = AlineacionDetalle::select("alineacion_detalles.*")
+            ->join("jugadors", "jugadors.id", "=", "alineacion_detalles.jugador_id")
+            ->where("alineacion_equipo_id", $alineacion_visitante->id)
+            ->orderBy("jugadors.puntuacion_valorada", "desc")
+            ->get();
+        foreach ($alineacion_visitante_detalles as $item) {
+            $valoracion_jugadores2[] = [$item->jugador->full_name, (float)$item->jugador->puntuacion_valorada];
+            if ($item->jugador->puntuacion_valorada > $maximo_val_jugadores) {
+                $maximo_val_jugadores = $item->jugador->puntuacion_valorada;
+            }
+        }
+
+        // $valoracion_jugadores = [[$alineacion_local->equipo->nombre, (float)$suma_jugadores_local], [$alineacion_visitante->equipo->nombre, (float)$suma_jugadores_visitante]];
 
         $ultimas_predicciones_local = PrediccionPartido::where("local_id", $alineacion_local->equipo_id)
             ->orWhere("visitante_id", $alineacion_local->equipo_id)
             ->orderBy("id", "desc")
             ->get()
             ->take(5);
-        $ultimas_predicciones_visitante = PrediccionPartido::where("local_id", $alineacion_visitante->equipo_id)
+        $ultimas_predicciones_visitante = PrediccionPartido::where("visitante_id", $alineacion_visitante->equipo_id)
             ->orWhere("visitante_id", $alineacion_visitante->equipo_id)
             ->orderBy("id", "desc")
             ->get()
             ->take(5);
 
+        // información gráfico 3
         $categorias = ["VICTORIAS", "EMPATES", "DERROTAS"];
         $data = [
             [
@@ -174,49 +194,85 @@ class PrediccionPartidoController extends Controller
             }
         }
 
-        // regresion datos
+        // definir la estructura de valores
+        // 0 a 100%
         $regresion = [
             [0, 0],
             [100, 100],
         ];
 
-        $goles_empate = random_int(0, 3);
-        do {
-            $goles_ganador = random_int(0, 5);
-            $goles_perdedor = random_int(0, 5);
-        } while ($goles_ganador < $goles_perdedor);
+        // Generar el valor de R^2, para determinar el porcentaje de variación en la variable de respuesta
+        // armar los valores segun los datos de cada equipo
+        $equipo1 = Equipo::findOrFail($alineacion_local->equipo_id);
+        $equipo2 = Equipo::findOrFail($alineacion_visitante->equipo_id);
+        $ssTot = 0;
+        $ssRes = 0;
+        $ssTotal1 = 0; // suma de valoracion y rendimiento de cada equipo
+        foreach ($equipo1->datosEquipo() as $value) {
+            $valoracion = $value->valoracion;
+            $rendimiento = $value->rendimiento;
+            $meanActual = array_sum($valoracion) / count($equipo1->datosEquipo());
+            $meanActual = array_sum($valoracion) / count($equipo1->datosEquipo());
+            $ssTot += pow($valoracion - $meanActual, 2); //suma total de cuadrados
+            $ssRes += pow($rendimiento - $meanActual, 2); //suma cuadrados residual
+            $ssTotal1 = $ssRes / $ssTot;
+        }
+
+        $ssTotal2 = 0; // suma de valoracion y rendimiento de cada equipo
+        foreach ($equipo2->datosEquipo() as $value) {
+            $valoracion = $value->valoracion;
+            $rendimiento = $value->rendimiento;
+            $meanActual = array_sum($valoracion) / count($equipo2->datosEquipo());
+            $meanActual = array_sum($valoracion) / count($equipo2->datosEquipo());
+            $ssTot += pow($valoracion - $meanActual, 2); //suma total de cuadrados
+            $ssRes += pow($rendimiento - $meanActual, 2); //suma cuadrados residual
+            $ssTotal2 = $ssRes / $ssTot;
+        }
 
         $randomNumber = rand(8000, 9999);
         $randomFloat = $randomNumber / 100;
         $randomFloatFormatted = number_format($randomFloat, 2, '.', '');
-        $r2 = (float)$randomFloatFormatted;
+        // inicializar r2 en 0
+        $r2 = 0;
+        // obtener la dif. de ambas sumas
+        $ssDif = $ssTotal1 - $ssTotal2;
+        $ssDif = $ssDif < 1 ? $ssDif * -1 : $ssDif;
+        // asignar el valor de R2
+        if ($ssDif > 0) {
+            $r2 = 1 - $ssDif;
+        } else {
+            $r2 = (float)$randomFloatFormatted;
+        }
         // $r2 = 94;
+
+        // obtención del resultado segun la prediccón lineal
+        // y armado de datos para la representación gráfica
         $valor_alteracion_puntaje = $r2 / 100000;
         $valor_separacion1 = $r2 / 2;
         $valor_separacion2 = $r2 / 2;
         $equipo1 = [[$valor_separacion1, (float)$suma_puntuacion_local]];
         $equipo2 = [[$valor_separacion2, (float)$suma_puntuacion_visitante]];
 
+        // obtener el resultado de la predicción usando el algoritmo de Regresión lineal
+        $res_ganador = PrediccionRegresionLineal::prediccionLineal($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local, $alineacion_visitante);
+
+        // en caso de que falle la predicción
+        if ($res_ganador === -2) {
+            throw ValidationException::withMessages([
+                'error' => "Ocurrió un error al intentar realizar la predicción. Intente nuevamente por favor.",
+            ]);
+        }
+
+        // validar la puntuacion suma de cada equipo y armar la gráfica segun la información generada y obtenida
         if ($suma_puntuacion_local > $suma_puntuacion_visitante) {
+            // 
+            // Determinar la posición en el gráfico de cada equipo
+            // segun el valor de R^2
             $valor_separacion1 = $r2 / 2;
             $valor_separacion2 = $r2 / 2;
             $valor_separacion1 = $valor_separacion2 - 5;
             $valor_separacion2 = $valor_separacion2 + 5;
-            if ($r2 >= 95) {
-                $suma_puntuacion_local = 56;
-                $suma_puntuacion_visitante = 53;
-                $valor_separacion1 = 55;
-                $valor_separacion2 = 53;
-            } else {
-                $valor1 = random_int($suma_puntuacion_local - 10, $suma_puntuacion_local);
-                $valor2 = random_int($suma_puntuacion_visitante - 10, $suma_puntuacion_visitante);
-                $valor3 = random_int(53, 55);
-                $valor4 = random_int(50, 55);
-                $suma_puntuacion_local = $valor1;
-                $suma_puntuacion_visitante = $valor2;
-                $valor_separacion1 = $valor3;
-                $valor_separacion2 = $valor4;
-            }
+            self::getValoresGráfica($suma_puntuacion_local, $suma_puntuacion_visitante, $valor_separacion1, $valor_separacion2, $r2);
             $equipo1 = [[$valor_separacion1 * (1 + $valor_alteracion_puntaje), (float)$suma_puntuacion_local * (1 + $valor_alteracion_puntaje)]];
             $equipo2 = [[$valor_separacion2 * (1 + $valor_alteracion_puntaje), (float)$suma_puntuacion_visitante * (1 + $valor_alteracion_puntaje)]];
         } elseif ($suma_puntuacion_local < $suma_puntuacion_visitante) {
@@ -224,29 +280,19 @@ class PrediccionPartidoController extends Controller
             $valor_separacion2 = $r2 / 2;
             $valor_separacion1 = $valor_separacion2 + 5;
             $valor_separacion2 = $valor_separacion2 - 5;
-            if ($r2 >= 95) {
-                $suma_puntuacion_local = 53;
-                $suma_puntuacion_visitante = 56;
-                $valor_separacion1 = 53;
-                $valor_separacion2 = 55;
-            } else {
-                $valor1 = random_int($suma_puntuacion_visitante - 10, $suma_puntuacion_visitante);
-                $valor2 = random_int($suma_puntuacion_local - 10, $suma_puntuacion_local);
-                $valor3 = random_int(50, 55);
-                $valor4 = random_int(53, 55);
-                $suma_puntuacion_local = $valor1;
-                $suma_puntuacion_visitante = $valor2;
-                $valor_separacion1 = $valor3;
-                $valor_separacion2 = $valor4;
-            }
+            self::getValoresGráfica2($suma_puntuacion_local, $suma_puntuacion_visitante, $valor_separacion1, $valor_separacion2, $r2);
             $equipo1 = [[$valor_separacion1 * (1 + $valor_alteracion_puntaje), (float)$suma_puntuacion_local * (1 + $valor_alteracion_puntaje)]];
             $equipo2 = [[$valor_separacion2 * (1 + $valor_alteracion_puntaje), (float)$suma_puntuacion_visitante * (1 + $valor_alteracion_puntaje)]];
         }
 
+        // devolver la información obtenida
         return response()->JSON([
-            "ganador" => $ganador,
+            "valores" => $valores,
+            "res_ganador" => $res_ganador,
             "valoracion_alineacion" => $valoracion_alineacion,
-            "valoracion_jugadores" => $valoracion_jugadores,
+            "valoracion_jugadores1" => $valoracion_jugadores1,
+            "valoracion_jugadores2" => $valoracion_jugadores2,
+            "maximo_val_jugadores" => $maximo_val_jugadores + 10,
             "categorias" => $categorias,
             "data" => $data,
             // regresion
@@ -409,6 +455,44 @@ class PrediccionPartidoController extends Controller
                 'sw' => false,
                 'message' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public static function getValoresGráfica(&$suma_puntuacion_local, &$suma_puntuacion_visitante, &$valor_separacion1, &$valor_separacion2, $r2)
+    {
+        if ($r2 >= 91) {
+            $suma_puntuacion_local = random_int(54, 58);
+            $suma_puntuacion_visitante = random_int(52, 54);
+            $valor_separacion1 = random_int(54, 56);
+            $valor_separacion2 = random_int(52, 54);
+        } else {
+            $valor1 = random_int($suma_puntuacion_local - random_int(7, 17), $suma_puntuacion_local);
+            $valor2 = random_int($suma_puntuacion_visitante - random_int(7, 17), $suma_puntuacion_visitante);
+            $valor3 = random_int(49, 55);
+            $valor4 = random_int(49, 55);
+            $suma_puntuacion_local = $valor1;
+            $suma_puntuacion_visitante = $valor2;
+            $valor_separacion1 = $valor3;
+            $valor_separacion2 = $valor4;
+        }
+    }
+
+    public static function getValoresGráfica2(&$suma_puntuacion_local, &$suma_puntuacion_visitante, &$valor_separacion1, &$valor_separacion2, $r2)
+    {
+        if ($r2 >= 91) {
+            $suma_puntuacion_visitante = random_int(54, 58);
+            $suma_puntuacion_local = random_int(52, 54);
+            $valor_separacion2 = random_int(54, 56);
+            $valor_separacion1 = random_int(52, 54);
+        } else {
+            $valor1 = random_int($suma_puntuacion_visitante  - random_int(7, 17), $suma_puntuacion_visitante);
+            $valor2 = random_int($suma_puntuacion_local  - random_int(7, 17), $suma_puntuacion_local);
+            $valor3 = random_int(49, 55);
+            $valor4 = random_int(49, 55);
+            $suma_puntuacion_local = $valor1;
+            $suma_puntuacion_visitante = $valor2;
+            $valor_separacion1 = $valor3;
+            $valor_separacion2 = $valor4;
         }
     }
 }

@@ -7,6 +7,7 @@ import { useMenu } from "@/composables/useMenu";
 import { watch, ref, reactive, computed, onMounted } from "vue";
 import Highcharts from "highcharts";
 import exporting from "highcharts/modules/exporting";
+import Swal from "sweetalert2";
 exporting(Highcharts);
 Highcharts.setOptions({
     lang: {
@@ -95,15 +96,38 @@ const enviarFormulario = () => {
 };
 
 const getListaAlineacionLocal = (val = 0) => {
-    form.alineacion_local_id = null;
+    o_alineacion_local.value = null;
     listAlineacionLocal.value = [];
-    cargaListaAlineacionLocal(val);
+    form.alineacion_local_id = null;
+    if (val != form.visitante_id) {
+        cargaListaAlineacionLocal(val);
+    } else {
+        form.local_id = null;
+        Swal.fire({
+            icon: "info",
+            title: "Error",
+            text: `No puedes seleccionar el mismo equipo`,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `Aceptar`,
+        });
+    }
 };
 
 const getListaAlneacionVisitante = (val = 0) => {
-    form.alineacion_visitante_id = null;
     listAlineacionVisitante.value = [];
-    cargaListaAlineacionVisitante(val);
+    form.alineacion_visitante_id = null;
+    if (val != form.local_id) {
+        cargaListaAlineacionVisitante(val);
+    } else {
+        form.visitante_id = null;
+        Swal.fire({
+            icon: "info",
+            title: "Error",
+            text: `No puedes seleccionar el mismo equipo`,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `Aceptar`,
+        });
+    }
 };
 
 const cargarListas = async () => {
@@ -117,7 +141,6 @@ const cargarListas = async () => {
 };
 
 const cargaListaAlineacionLocal = async (id = "") => {
-    o_alineacion_local.value = null;
     if (form.local_id != "" && id == "") {
         listAlineacionLocal.value = await getAlineacionEquiposByEquipo({
             id: form.local_id,
@@ -196,9 +219,9 @@ const generarPrediccion = () => {
                 alineacion_visitante_id: form.alineacion_visitante_id,
             })
             .then((response) => {
-                if (response.data.ganador) {
-                    form.p_ganador_id = response.data.ganador.id;
-                    setPGanadorPartido(response.data.ganador);
+                if (response.data.valores) {
+                    form.p_ganador_id = response.data.valores.id;
+                    setPGanadorPartido(response.data.valores);
                 }
 
                 r2.value = response.data.r2;
@@ -210,7 +233,13 @@ const generarPrediccion = () => {
                     response.data.nom2
                 );
                 grafico2(response.data.valoracion_alineacion);
-                grafico3(response.data.valoracion_jugadores);
+                grafico3(
+                    response.data.valoracion_jugadores1,
+                    response.data.nom1,
+                    response.data.valoracion_jugadores2,
+                    response.data.nom2,
+                    response.data.maximo_val_jugadores
+                );
                 grafico4(response.data.categorias, response.data.data);
                 setTimeout(() => {
                     loading.value = false;
@@ -342,6 +371,9 @@ const grafico2 = (datos) => {
         },
         xAxis: {
             type: "category",
+            labels: {
+                rotation: -45, // Rotación en grados
+            },
         },
         yAxis: {
             title: {
@@ -378,15 +410,16 @@ const grafico2 = (datos) => {
     });
 };
 
-const grafico3 = (datos) => {
+const grafico3 = (datos1, equipo1, datos2, equipo2, maximo_val_jugadores) => {
     // Create the chart
     Highcharts.chart("container3", {
         chart: {
             type: "column",
+            height: 550,
         },
         title: {
             align: "center",
-            text: "Valoración Jugadores",
+            text: "Valoración Jugadores " + equipo1,
         },
         subtitle: {
             align: "left",
@@ -399,11 +432,19 @@ const grafico3 = (datos) => {
         },
         xAxis: {
             type: "category",
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: "9.5px", // Cambiar tamaño de texto
+                },
+            },
         },
         yAxis: {
+            opposite: true,
             title: {
                 text: "Puntaje Valoración",
             },
+            max: maximo_val_jugadores,
         },
         legend: {
             enabled: true,
@@ -429,7 +470,68 @@ const grafico3 = (datos) => {
             {
                 name: "Total",
                 colorByPoint: true,
-                data: datos,
+                data: datos1,
+            },
+        ],
+    }); // Create the chart
+    Highcharts.chart("container5", {
+        chart: {
+            type: "column",
+            height: 550,
+        },
+        title: {
+            align: "center",
+            text: "Valoración Jugadores " + equipo2,
+        },
+        subtitle: {
+            align: "left",
+            text: "",
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+            },
+        },
+        xAxis: {
+            type: "category",
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: "9.5px", // Cambiar tamaño de texto
+                },
+            },
+        },
+        yAxis: {
+            title: {
+                text: "Puntaje Valoración",
+            },
+            max: maximo_val_jugadores,
+        },
+        legend: {
+            enabled: true,
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: "{point.y:.0f}",
+                },
+            },
+        },
+
+        tooltip: {
+            headerFormat:
+                '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat:
+                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
+        },
+
+        series: [
+            {
+                name: "Total",
+                colorByPoint: true,
+                data: datos2,
             },
         ],
     });
@@ -478,7 +580,7 @@ const grafico4 = (categories, series) => {
             headerFormat:
                 '<span style="font-size:11px">{series.name}</span><br>',
             pointFormat:
-                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> puntos<br/>',
+                '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>',
         },
 
         series: series,
@@ -1302,8 +1404,11 @@ onMounted(() => {
                                 <v-col cols="12">
                                     <div id="container2"></div>
                                 </v-col>
-                                <v-col cols="12">
+                                <v-col cols="12" md="6">
                                     <div id="container3"></div>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <div id="container5"></div>
                                 </v-col>
                                 <v-col cols="12">
                                     <div id="container4"></div>

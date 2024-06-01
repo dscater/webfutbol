@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
+use App\Models\LeatSquares;
+use App\Models\PrediccionPartido;
 use App\Models\TablaPosicion;
+use Illuminate\Support\Facades\Log;
 use Phpml\Dataset\ArrayDataset;
 use Phpml\Metric\Accuracy;
 use Phpml\ModelManager;
 use Phpml\Regression\LeastSquares;
 
-class PrediccionRegresionLinea extends Controller
+class PrediccionRegresionLineal extends Controller
 {
-    public function aplicarSVM($local_id, $visitante_id, $alineacion_local, $alineacion_visitante)
+    public static function prediccionLineal($local_id, $visitante_id, $alineacion_local, $alineacion_visitante)
     {
         // COMENZAR CON EL ENTRENAMIENTO Y PREDICCIÓN
         // Datos de entrenamiento
@@ -30,23 +33,23 @@ class PrediccionRegresionLinea extends Controller
             $g = 0;
             $gf = 0;
             $gc = 0;
-            if ($datos_equipo_local->p_ganador_id == $alineacion_local->equipo_id || $datos_equipo_local->ganador_id == $alineacion_local->equipo_id) {
+            if ($item->p_ganador_id == $alineacion_local->equipo_id || $item->ganador_id == $alineacion_local->equipo_id) {
                 $victoria = 1;
-            } elseif (!$datos_equipo_local->p_ganador_id || ($datos_equipo_local->g_local != null && $datos_equipo_local->g_visitante != null && $datos_equipo_local->g_local == $datos_equipo_local->g_visitante)) {
+            } elseif (!$item->p_ganador_id || ($item->g_local != null && $item->g_visitante != null && $item->g_local == $item->g_visitante)) {
                 $empate = 1;
-            } elseif ($datos_equipo_local->p_ganador_id != $alineacion_local->equipo_id || $datos_equipo_local->ganador_id != $alineacion_local->equipo_id) {
+            } elseif ($item->p_ganador_id != $alineacion_local->equipo_id || $item->ganador_id != $alineacion_local->equipo_id) {
                 $derrota = 1;
             }
-            if ($datos_equipo_local->g_local && $datos_equipo_local->g_visitante) {
-                $g = $datos_equipo_local->g_local;
-                $gf = $datos_equipo_local->g_local;
-                $gc = $datos_equipo_local->g_visitante;
+            if ($item->g_local && $item->g_visitante) {
+                $g = $item->g_local;
+                $gf = $item->g_local;
+                $gc = $item->g_visitante;
             }
             $datos_local[]  = [$victoria, $empate, $derrota, $g, $gf, $gc];
         }
         $equipo = Equipo::find($visitante_id);
         // buscar y recolectar datos del equipo
-        $datos_equipo_visitante = PrediccionPartido::where("local_id", $alineacion_visitante->equipo_id)
+        $datos_equipo_visitante = PrediccionPartido::where("visitante_id", $alineacion_visitante->equipo_id)
             ->orWhere("visitante_id", $alineacion_visitante->equipo_id)
             ->orderBy("id", "desc")
             ->get();
@@ -59,17 +62,17 @@ class PrediccionRegresionLinea extends Controller
             $g = 0;
             $gf = 0;
             $gc = 0;
-            if ($datos_equipo_visitante->p_ganador_id == $alineacion_visitante->equipo_id || $datos_equipo_visitante->ganador_id == $alineacion_visitante->equipo_id) {
-                $data[1]["data"][0] = (int)$data[1]["data"][0] + 1;
-            } elseif (!$datos_equipo_visitante->p_ganador_id || ($datos_equipo_visitante->g_local != null && $datos_equipo_visitante->g_visitante != null && $datos_equipo_visitante->g_local == $datos_equipo_visitante->g_visitante)) {
-                $data[1]["data"][1] = (int)$data[1]["data"][1] + 1;
-            } elseif ($datos_equipo_visitante->p_ganador_id != $alineacion_visitante->equipo_id || $datos_equipo_visitante->ganador_id != $alineacion_visitante->equipo_id) {
-                $data[1]["data"][2] = (int)$data[1]["data"][2] + 1;
+            if ($item->p_ganador_id == $alineacion_visitante->equipo_id || $item->ganador_id == $alineacion_visitante->equipo_id) {
+                $victoria = (int)$victoria + 1;
+            } elseif (!$item->p_ganador_id || ($item->g_local != null && $item->g_visitante != null && $item->g_local == $item->g_visitante)) {
+                $empate = (int)$empate + 1;
+            } elseif ($item->p_ganador_id != $alineacion_visitante->equipo_id || $item->ganador_id != $alineacion_visitante->equipo_id) {
+                $derrota = (int)$derrota + 1;
             }
-            if ($datos_equipo_local->g_local && $datos_equipo_local->g_visitante) {
-                $g = $datos_equipo_local->g_visitante;
-                $gf = $datos_equipo_local->g_visitante;
-                $gc = $datos_equipo_local->g_local;
+            if ($item->g_local && $item->g_visitante) {
+                $g = $item->g_visitante;
+                $gf = $item->g_visitante;
+                $gc = $item->g_local;
             }
             $datos_visitante[]  = [$victoria, $empate, $derrota, $g, $gf, $gc];
         }
@@ -78,7 +81,6 @@ class PrediccionRegresionLinea extends Controller
         $datos_equipo_local = TablaPosicion::where("equipo_id", $alineacion_local->equpo_id)->get();
 
         // armar los datos que se utilizaran
-        $datos_local = [];
         foreach ($datos_equipo_local as $item) {
             $datos_local[]  = [$item->pj, $item->g, $item->e, $item->p, $item->gf, $item->gc, $item->dg];
         }
@@ -88,14 +90,12 @@ class PrediccionRegresionLinea extends Controller
         $datos_equipo_visitante = TablaPosicion::where("equipo_id", $alineacion_visitante->equipo_id)->get();
 
         // armar los datos que se utilizaran para el modelo
-        $datos_visitante = [];
         foreach ($datos_equipo_visitante as $item) {
             $datos_visitante[] = [$item->pj, $item->g, $item->e, $item->gf, $item->gc, $item->dg];
         }
 
         // unir los datos para el analisis y obtencion del modelo
-        $data[] = $datos_local;
-        $data[] = $datos_visitante;
+        $data = array_merge($datos_local, $datos_visitante);
         $targets = [];
         // Dividir el conjunto de datos en entrenamiento y prueba
         $splitRatio = 0.8;
@@ -103,29 +103,18 @@ class PrediccionRegresionLinea extends Controller
 
         $trainSamples = array_slice($data, 0, $splitIndex);
         $trainLabels = array_slice($targets, 0, $splitIndex);
-
-        $testSamples = array_slice($data, $splitIndex);
-        $testLabels = array_slice($targets, $splitIndex);
-
-        // Crear el modelo de regresión lineal
-        $regression = new LeastSquares();
-
-        // Entrenar el modelo
-        $regression->train($trainSamples, $trainLabels);
-
-        // Hacer predicciones
-        $predictedLabels = $regression->predict($testSamples);
-
-        // Evaluar la precisión del modelo
-        $accuracy = Accuracy::score($testLabels, $predictedLabels);
-
-        // Guardar el modelo
-        $modelManager = new ModelManager();
-        $modelManager->saveToFile($regression, 'model_trained.phpml');
-
-        // Cargar el modelo
-        $regression = $modelManager->restoreFromFile('model_trained.phpml');
-
+        try {
+            // Crear el modelo de regresión lineal
+            $regression = new LeatSquares();
+            // Entrenar el modelo
+            $resultado = $regression->train($trainSamples, $trainLabels);
+            // Guardar el modelo
+            $modelManager = new ModelManager();
+            $modelManager->saveToFile($resultado, 'model_trained.phpml');
+        } catch (Exception $e) {
+            // ocurrio un error al intentar guardar el modelo
+            return -2;
+        }
         // ************************
         // REALIZAR LA PREDICCIÓN
         // ************************
@@ -168,8 +157,9 @@ class PrediccionRegresionLinea extends Controller
                 $datos_prediccion[] = [$item[1], $item[2], $item[3], $datos_equipo_local[$key][1], $datos_equipo_local[$key][2], $datos_equipo_local[$key][3]];
             }
         }
+
         // Hacer predicciones
-        $predictedLabels = $regression->predict($datos_prediccion);
+        $predictedLabels = $regression->predict($resultado, $datos_prediccion);
         // almacenar el ultimo resultado
         $ultimo_resultado = $predictedLabels[count($predictedLabels) - 1];
         $resultado = "EMPATE";

@@ -49,4 +49,9 @@ class Equipo extends Model
     {
         return $this->hasMany(Fichaje::class, 'equipo_id');
     }
+
+    public function datosEquipo()
+    {
+        return [];
+    }
 }
