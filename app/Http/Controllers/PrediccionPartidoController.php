@@ -229,21 +229,8 @@ class PrediccionPartidoController extends Controller
             $ssTotal2 = $ssRes / $ssTot;
         }
 
-        $randomNumber = rand(8000, 9999);
-        $randomFloat = $randomNumber / 100;
-        $randomFloatFormatted = number_format($randomFloat, 2, '.', '');
         // inicializar r2 en 0
         $r2 = 0;
-        // obtener la dif. de ambas sumas
-        $ssDif = $ssTotal1 - $ssTotal2;
-        $ssDif = $ssDif < 1 ? $ssDif * -1 : $ssDif;
-        // asignar el valor de R2
-        if ($ssDif > 0) {
-            $r2 = 1 - $ssDif;
-        } else {
-            $r2 = (float)$randomFloatFormatted;
-        }
-        // $r2 = 94;
 
         // obtención del resultado segun la prediccón lineal
         // y armado de datos para la representación gráfica
@@ -254,8 +241,17 @@ class PrediccionPartidoController extends Controller
         $equipo2 = [[$valor_separacion2, (float)$suma_puntuacion_visitante]];
 
         // obtener el resultado de la predicción usando el algoritmo de Regresión lineal
-        $res_ganador = PrediccionRegresionLineal::prediccionLineal($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local, $alineacion_visitante);
+        $res_ganador = PrediccionRegresionLineal::prediccionLineal($alineacion_local->equipo_id, $alineacion_visitante->equipo_id, $alineacion_local, $alineacion_visitante, $valores, $ssTotal1, $ssTotal2);
+        $r2 = $res_ganador[1]; //obtener valor R^2
+        /* * INTERPRETACIÓN * 
+         * R^2 cercano a 1: Indica un buen ajuste del modelo a los datos. La variable independiente exlpica una gran proporción de la variabilidad en la variable dependiente.
+         * R^2 cercano a 0: Indica un mal ajuste del modelo a los datos. La variable independiente explica muy poca de la variabilidad en la variable dependiente
+         */
 
+        // Convertir a % para mostrar la información
+        $r2 = $r2 * 100;
+
+        $res_ganador = $res_ganador[0];
         // en caso de que falle la predicción
         if ($res_ganador === -2) {
             throw ValidationException::withMessages([

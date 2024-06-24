@@ -1398,7 +1398,7 @@ onMounted(() => {
                             </v-row>
                             <v-row v-show="muestra_resultado">
                                 <v-col cols="12">
-                                    <span>R^2 = {{ r2 }}</span>
+                                    <span>R^2 = {{ r2 }}%</span>
                                     <div id="container1"></div>
                                 </v-col>
                                 <v-col cols="12">

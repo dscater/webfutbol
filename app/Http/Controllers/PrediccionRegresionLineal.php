@@ -14,7 +14,7 @@ use Phpml\Regression\LeastSquares;
 
 class PrediccionRegresionLineal extends Controller
 {
-    public static function prediccionLineal($local_id, $visitante_id, $alineacion_local, $alineacion_visitante)
+    public static function prediccionLineal($local_id, $visitante_id, $alineacion_local, $alineacion_visitante, $valores, $ssTotal1, $ssTotal2)
     {
         // COMENZAR CON EL ENTRENAMIENTO Y PREDICCIÓN
         // Datos de entrenamiento
@@ -143,6 +143,7 @@ class PrediccionRegresionLineal extends Controller
         $total_datos_visitante = count($datos_visitante);
 
         // armar la matriz con información de cada equipo en cada fila
+
         // [info_e1, info_e1, info_e1, info_e2, info_e2, info_e2]
         // victorias, empates y derrotas
         if ($total_datos_local < $total_datos_visitante) {
@@ -159,9 +160,12 @@ class PrediccionRegresionLineal extends Controller
         }
 
         // Hacer predicciones
-        $predictedLabels = $regression->predict($resultado, $datos_prediccion);
+        $ssDif = $ssTotal1 - $ssTotal2;
+        $predictedLabels = $regression->predict($resultado, $datos_prediccion, $ssDif);
+        $res_labels = $predictedLabels[0];
+        $r2 = $predictedLabels[1];
         // almacenar el ultimo resultado
-        $ultimo_resultado = $predictedLabels[count($predictedLabels) - 1];
+        $ultimo_resultado = $res_labels[count($res_labels) - 1];
         $resultado = "EMPATE";
         if ($ultimo_resultado == 1) {
             $resultado = $equipo_local->nombre;
@@ -169,6 +173,6 @@ class PrediccionRegresionLineal extends Controller
         if ($ultimo_resultado == 0) {
             $resultado = $equipo_visitante->nombre;
         }
-        return $resultado;
+        return [$resultado, $r2];
     }
 }
