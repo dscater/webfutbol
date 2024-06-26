@@ -12,14 +12,16 @@ use Phpml\Metric\Accuracy;
 use Phpml\ModelManager;
 use Phpml\Regression\LeastSquares;
 
-class PrediccionRegresionLineal extends Controller
+class EmpresaInfo extends Controller
 {
-    public static function prediccionLineal($local_id, $visitante_id, $alineacion_local, $alineacion_visitante, $valores, $ssTotal1, $ssTotal2)
+
+    public function getInfoEmpresa()
     {
-        // COMENZAR CON EL ENTRENAMIENTO Y PREDICCIÓN
-        // Datos de entrenamiento
+    }
+
+    public static function getInfoEquipos($local_id, $visitante_id, $alineacion_local, $alineacion_visitante, $valores, $ssTotal1, $ssTotal2)
+    {
         $data = [];
-        // buscar y recolectar datos del equipo
         $datos_equipo_local = PrediccionPartido::where("local_id", $alineacion_local->equipo_id)
             ->orWhere("visitante_id", $alineacion_local->equipo_id)
             ->orderBy("id", "desc")

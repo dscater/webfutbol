@@ -214,7 +214,7 @@ const generarPrediccion = () => {
     setPGanadorPartido(null);
     if (form.alineacion_local_id && form.alineacion_visitante_id) {
         axios
-            .post(route("prediccion_partidos.prediccion"), {
+            .post(route("prediccion_partidos.inf"), {
                 alineacion_local_id: form.alineacion_local_id,
                 alineacion_visitante_id: form.alineacion_visitante_id,
             })
@@ -589,7 +589,7 @@ const grafico4 = (categories, series) => {
 
 onMounted(() => {
     if (form.id && form.id != "") {
-        muestra_resultado.value = true;
+        //muestra_resultado.value = true;
     }
     cargarListas();
 });
@@ -1398,7 +1398,9 @@ onMounted(() => {
                             </v-row>
                             <v-row v-show="muestra_resultado">
                                 <v-col cols="12">
-                                    <span>R^2 = {{ r2 }}%</span>
+                                    <v-chip color="primary" class="rounded-0 border">
+                                        <span class="font-weight-bold text-h5">R^2 = {{ r2 }}%</span>
+                                    </v-chip>
                                     <div id="container1"></div>
                                 </v-col>
                                 <v-col cols="12">

@@ -10,6 +10,7 @@ use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\JugadorTituloController;
 use App\Http\Controllers\PrediccionPartidoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RepController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\TablaPosicionController;
 use App\Http\Controllers\UserController;
@@ -135,6 +136,7 @@ Route::middleware('auth')->group(function () {
         ["index", "create", "edit", "store", "update", "show", "destroy"]
     );
 
+    Route::post("/prediccion_partidos/inf", [RepController::class, 'inf'])->name("prediccion_partidos.inf");
     // PREDICCION DE PARTIDOS
     Route::post("/prediccion_partidos/prediccion", [PrediccionPartidoController::class, 'prediccion'])->name("prediccion_partidos.prediccion");
     Route::get("/prediccion_partidos/paginado", [PrediccionPartidoController::class, 'paginado'])->name("prediccion_partidos.paginado");
